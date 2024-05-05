@@ -1,8 +1,17 @@
-# React + Vite
+### To run the forntend
+1. Clone the repository to your local machine.
+2. Create a new branch -> git branch your-branch-name
+3. Run the following command to switch to the new branch -> git checkout my-new-branch
+4. Get into frontend folder -> cd frontend
+5. Make changes
+6. Run-> npm run dev
+7. Add and Commit your changes to the new branch.
+8. Push the new branch to the remote repository.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Example
+1. git branch my-new-branch
+2. git checkout my-new-branch
+3. npm run dev
+4. git add .
+5. git commit -m "Added a new file"
+6. git push origin my-new-branch
