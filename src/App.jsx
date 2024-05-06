@@ -6,6 +6,7 @@ import _404 from "./Pages/_404"
 import ForgotPassword from "./Pages/ForgotPassword"
 import ForgotP_recovery from "./Pages/ForgotP_recovery"
 import ChangePassword from "./Pages/ChangePassword"
+import Email_verification from "./Pages/Email_verification"
 
 import { BrowserRouter, Route, Routes,Navigate } from "react-router-dom"
 function App() {
@@ -28,6 +29,7 @@ function App() {
               <Route path='/forgotpassword' element={<ForgotPassword/>} />
               <Route path='/' element={<Register_Logout/>} />
               <Route path='/api/user/reset/:uid/:token' element={<ForgotP_recovery/>} />
+              <Route path='/api/user/verify/:uid/:token' element={<Email_verification/>} />
 
               <Route element={<ProtectedRoutes />}>
                 <Route path='/home' element={<Home />} />

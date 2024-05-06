@@ -24,7 +24,6 @@ function Login() {
 
         } catch (error) {
             if (error.response && error.response.status === 401) {
-                // console.log(error.response.data.detail)
                 setmsg("Invalid username or password")
             }
         } finally {
