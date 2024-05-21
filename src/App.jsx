@@ -7,6 +7,8 @@ import ForgotPassword from "./Pages/ForgotPassword"
 import ForgotP_recovery from "./Pages/ForgotP_recovery"
 import ChangePassword from "./Pages/ChangePassword"
 import Email_verification from "./Pages/Email_verification"
+import Landing from "./Pages/Landing"
+import ViewPost from "./Pages/ViewPost"
 
 import { BrowserRouter, Route, Routes,Navigate } from "react-router-dom"
 function App() {
@@ -21,13 +23,15 @@ function App() {
   }
   return (
     <>
-      <h1>Todos</h1>
+      <h1>Mini project</h1>
       <BrowserRouter>
             
             <Routes>
               <Route path='/login' element={<Login />} />
+              <Route path='/view' element={<ViewPost />} />
               <Route path='/forgotpassword' element={<ForgotPassword/>} />
-              <Route path='/' element={<Register_Logout/>} />
+              <Route path='/' element={<Landing/>} />
+              <Route path='/register' element={<Register_Logout/>} />
               <Route path='/api/user/reset/:uid/:token' element={<ForgotP_recovery/>} />
               <Route path='/api/user/verify/:uid/:token' element={<Email_verification/>} />
 

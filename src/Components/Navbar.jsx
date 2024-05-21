@@ -8,10 +8,11 @@ function Navbar(props) {
         <h1>Navbar</h1>
 
        
-        {props.isauth ?(<><Link to="/home">Home</Link> <br /> 
+        {props.isauth ?(<><Link to="/">Home</Link> <br /> 
         <Link to="/changepassword">ChangePassword</Link> <br /> 
         <Link to="/logout">Logout</Link> <br />
-        </>) : (<> <Link to="/">Register</Link> <br />
+        </>) : (<> <Link to="/">Home</Link> <br /> 
+        <Link to="/home">create post</Link> <br />
         <Link to="/login">Login</Link> <br /></>)}
         
     </div>
