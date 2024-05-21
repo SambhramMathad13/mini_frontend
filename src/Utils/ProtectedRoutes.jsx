@@ -53,7 +53,7 @@ function ProtectedRoutes() {
         return <div>Loading...</div>;
     }
 
-    return isAuth ? (<Outlet/>) : <Navigate to="/login" />;
+    return isAuth ? (<Outlet/>) : <Navigate to="/register" />;
 }
 
 export default ProtectedRoutes
