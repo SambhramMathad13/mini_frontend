@@ -1,4 +1,4 @@
-## **Note : ** After you create the clone in your local machine , you also need to install npm package 
+## Note : After you create the clone in your local machine , you also need to install npm package 
 
 ### To run the forntend
 1. Clone the repository to your local machine.
