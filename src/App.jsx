@@ -9,8 +9,11 @@ import ChangePassword from "./Pages/ChangePassword"
 import Email_verification from "./Pages/Email_verification"
 import Landing from "./Pages/Landing"
 import ViewPost from "./Pages/ViewPost"
+import Form from "./Pages/Form"
 
 import { BrowserRouter, Route, Routes,Navigate } from "react-router-dom"
+import ViewUserPost from "./Pages/ViewUserPost"
+import UpdatePost from "./Pages/UpdatePost"
 function App() {
   function Logout() {
     localStorage.clear()
@@ -38,6 +41,9 @@ function App() {
               <Route element={<ProtectedRoutes />}>
                 <Route path='/home' element={<Home />} />
                 <Route path='/changepassword' element={<ChangePassword />} />
+                <Route path='/form' element={<Form/>} />
+                <Route path='/viewuserpost' element={<ViewUserPost/>}/>
+                <Route path='/updatepost' element={<UpdatePost/>}/>
               <Route path='/logout' element={<Logout />} />
               </Route>
 
