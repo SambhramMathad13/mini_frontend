@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation,useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import api from '../Utils/Axios';
 
 function ViewUserPost() {
     const { state } = useLocation();
+    const [load, setload] = useState(false)
     const post = state?.ele;
     // console.log(post)
 
@@ -17,7 +19,20 @@ function ViewUserPost() {
         navigate(`/updatepost`, { state: { ele: post } });
     };
 
-    return (
+    const deletee = async function (id) {
+        setload(true)
+        try {
+          const res = await api.delete(`/api/uposts/${id}`);
+        //   console.log(res)
+        } catch (err) {
+          console.log(err.response);
+        } finally {
+          setload(false)
+          navigate('/home')
+        }
+      }
+
+    return (load ? (<h1>Loading...</h1>) : (
         <div className="container mt-5">
             <div className="card">
                 <div className="card-body">
@@ -48,10 +63,11 @@ function ViewUserPost() {
       
                     <Link to="/home" className="btn btn-sm bg-primary text-white mt-3 mx-3">Back</Link>
                     <button onClick={navigateToUpdate} className="btn btn-sm bg-warning text-white mt-3">Update</button>
-                    <Link to="/home" className="btn btn-sm bg-danger text-white mt-3 mx-3">Delete</Link>
+                    <button className="btn btn-sm bg-danger text-white mt-3 mx-3" onClick={() => deletee(post.id)}>Delete</button>
                 </div>
             </div>
         </div>
+    )
     );
 }
 

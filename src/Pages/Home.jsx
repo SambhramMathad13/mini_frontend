@@ -8,7 +8,6 @@ function Home() {
   const navigate = useNavigate();
   const [load, setLoad] = useState(true);
   const [posts, setPosts] = useState([]);
-  const [search, setSearchKey] = useState('');
   const [msg, setMsg] = useState('');
 
   useEffect(() => {
@@ -33,22 +32,6 @@ function Home() {
     }
   }
 
-  async function searchPosts(e) {
-    setLoad(true);
-    e.preventDefault();
-    try {
-      const res = await api.get(`/api/posts/search/?search=${search}`);
-      const data = res.data;
-      if (data.length === 0) {
-        setMsg("No posts found");
-      }
-      setPosts(data);
-    } catch (err) {
-      console.log(err.response.data);
-    } finally {
-      setLoad(false);
-    }
-  }
 
   const truncateText = (text, maxLength) => {
     if (text.length > maxLength) {
@@ -61,8 +44,7 @@ function Home() {
     navigate(`/viewuserpost`, { state: { ele } });
   };
 
-  const handleClick = () => {
-   
+  const handleClick = () => {  
     navigate("/form");
   };
 
@@ -71,17 +53,10 @@ function Home() {
       <Navbar isauth={true} />
       <h1>Welcome to home page you made it...</h1>
       <br />
-      <form onSubmit={searchPosts}>
-        <input type="text" onChange={(e) => setSearchKey(e.target.value)} />
-        <button type="submit">Search</button>
-      </form>
       <br />
-      <br />
-      {/* {msg && (
-        <h4 style={{ color: 'white' }}>{msg}</h4>
-      )} */}
+
       <div className="row mx-3">
-        {posts.length === 0 ? (
+        {msg ? (
           <div className="col-12">
             <div className="d-flex justify-content-center">
             <h4 style={{ color: 'white' }}>You have not created any posts</h4>
@@ -112,7 +87,7 @@ function Home() {
                   <p className="card-text"><strong>CTC:</strong> {ele.ctc}</p>
                   <p className="card-text"><strong>Eligibility:</strong> {truncateText(ele.eligiblity, 100)}</p>
                   <p className="card-text"><strong>Rounds:</strong> {ele.rounds}</p>
-                  <button className="btn btn-primary btn-sm mt-3" onClick={() => view(ele)}>Read More</button>
+                  <button className="btn btn-primary btn-sm mt-3" onClick={() => view(ele)}>Manage</button>
                 </div>
               </div>
             </div>

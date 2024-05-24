@@ -1,27 +1,35 @@
-import React, { useRef } from 'react';
+import React, { useRef,useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import api from '../Utils/Axios';
 
 
 function Form() {
   const formRef = useRef(null);
+  const [load, setload] = useState(false)
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  async function  handleSubmit(event){
     event.preventDefault();
+    setload(true)
     const formData = new FormData(formRef.current);
-    const data = {};
-    formData.forEach((value, key) => {
-      data[key] = value;
-    });
 
-    
+    try {
+      const res = await api.post('/api/uposts', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      // console.log(res)
+    } catch (err) {
+      console.log(err);
 
-    console.log(data);
-    alert('Successfully created new Post');
-    navigate('/home');
+    } finally {
+      setload(false)
+      navigate('/home');
+    }
   };
 
-  return (
+  return (load ? (<h1>Loading...</h1>) : (
     <div className="container mt-5 d-flex justify-content-center">
       <div className="card bg-dark text-white" style={{ maxWidth: '600px', width: '100%' }}>
         <div className="card-body bg-white text-dark p-4 rounded">
@@ -43,20 +51,20 @@ function Form() {
             
             <div className="mb-3">
               <label htmlFor="socialLink" className="form-label">Social Link</label>
-              <input type="url" className="form-control" id="socialLink" name="socialLink"  />
+              <input type="url" className="form-control" id="socialLink" name="social_link"  />
             </div>
 
             <div className="mb-3">
               <label htmlFor="companyName" className="form-label">Company Name</label>
-              <input type="text" className="form-control" id="companyName" name="companyName" required />
+              <input type="text" className="form-control" id="companyName" name="company" required />
             </div>
             <div className="mb-3">
               <label htmlFor="aboutCompany" className="form-label">About Company</label>
-              <textarea className="form-control" id="aboutCompany" name="aboutCompany" rows="3" required></textarea>
+              <textarea className="form-control" id="aboutCompany" name="about_company" rows="3" required></textarea>
             </div>
             <div className="mb-3">
               <label htmlFor="eligibility" className="form-label">Eligibility</label>
-              <input type="text" className="form-control" id="eligibility" name="eligibility" required />
+              <input type="text" className="form-control" id="eligibility" name="eligiblity" required />
             </div>
             <div className="mb-3">
               <label htmlFor="ctc" className="form-label">CTC</label>
@@ -68,7 +76,11 @@ function Form() {
             </div>
             <div className="mb-3">
               <label htmlFor="description" className="form-label">Description</label>
-              <textarea className="form-control" id="description" name="description" rows="3" required></textarea>
+              <textarea className="form-control" id="description" name="desc" rows="3" required></textarea>
+            </div>
+            <div className="mb-3">
+              <label htmlFor="description" className="form-label">User image</label>
+              <input type="file" name='image' accept="image/*" />
             </div>
             <div className="d-flex justify-content-center">
               <button type="submit" className="btn btn-primary">Submit</button>
@@ -77,6 +89,7 @@ function Form() {
         </div>
       </div>
     </div>
+  )
   );
 }
 
