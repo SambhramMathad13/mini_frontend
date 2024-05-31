@@ -1,13 +1,15 @@
 import React, { useRef,useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../Utils/Axios';
+import { useQueryClient } from '@tanstack/react-query'
 
 
 function Form() {
   const formRef = useRef(null);
   const [load, setload] = useState(false)
   const navigate = useNavigate();
-
+  const queryClient = useQueryClient();
+  
   async function  handleSubmit(event){
     event.preventDefault();
     setload(true)
@@ -19,7 +21,9 @@ function Form() {
           'Content-Type': 'multipart/form-data'
         }
       });
-      // console.log(res)
+      queryClient.setQueryData(['uposts'], (oldPosts) => {
+        return [...oldPosts, res.data];
+      });
     } catch (err) {
       console.log(err);
 

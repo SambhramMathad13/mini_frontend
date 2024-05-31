@@ -1,55 +1,65 @@
-import React, { useState, useEffect } from 'react'
-import api from '../Utils/Axios';
+import React, { useState } from 'react'
+// import api from '../Utils/Axios';
 import Navbar from "../Components/Navbar"
 import { formatDistanceToNow } from 'date-fns';
 import { useNavigate } from "react-router-dom";
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
+
+
+const fetchPosts = async () => {
+    const res = await axios.get('https://mytodolistwebapp.pythonanywhere.com/api/tposts');
+    // console.log(res)
+    return res.data;
+};
 
 
 function Landing() {
-    const [load, setload] = useState(true)
+    const { data: posts, isLoading: load, error: msg } = useQuery({ queryKey: ['tposts'], queryFn: fetchPosts,staleTime: 900000 })
     const navigate = useNavigate();
-    const [posts, setposts] = useState([])
     const [search, setsearchkey] = useState('')
-    const [msg, setmsg] = useState('')
 
-    useEffect(() => {
-        getposts()
-    }, [])
 
-    async function getposts() {
-        setload(true)
-        try {
-            const res = await api.get('/api/tposts');
-            // console.log(res.data);
-            const data = res.data
-            setposts(data)
-        } catch (err) {
-            console.log(err.response.data);
-        } finally {
-            setload(false)
-        }
-    }
+    // useEffect(() => {
+    //     getposts()
+    // }, [])
+
+    // async function getposts() {
+    //     setload(true)
+    //     try {
+    //         const res = await axios.get('https://placed.pythonanywhere.com/api/tposts');
+    //         // console.log(res.data);
+    //         const data = res.data
+    //         setposts(data)
+    //     } catch (err) {
+    //         console.log(err.response.data);
+    //     } finally {
+    //         setload(false)
+    //     }
+    // }
 
     async function searchposts(e) {
-        setload(true)
-        e.preventDefault();
-        try {
-            const res = await api.get(`/api/posts/search/?search=${search}`);
-            // console.log(res.data)
-            const data = res.data
-            if (data.length === 0) {
-                // console.log("No posts found");
-                setmsg("No posts found");
-            }
-            setposts(data);
+        console.log("searching posts...")
+        // setload(true)
+        // e.preventDefault();
+        // try {
+        //     const res = await axios.get(`https://placed.pythonanywhere.com/api/posts/search/?search=${search}
+        //     `);
+        //     // console.log(res.data)
+        //     const data = res.data
+        //     if (data.length === 0) {
+        //         // console.log("No posts found");
+        //         setmsg("No posts found");
+        //     }
+        //     setposts(data);
 
 
-        } catch (err) {
-            console.log(err.response.data);
-        } finally {
-            setload(false)
-        }
+        // } catch (err) {
+        //     console.log(err.response.data);
+        // } finally {
+        //     setload(false)
+        // }
     }
 
     const truncateText = (text, maxLength) => {
@@ -71,12 +81,12 @@ function Landing() {
                 <input type="text" onChange={(e) => setsearchkey(e.target.value)} />
                 <button type="submit">Search</button>
             </form> <br /><br />
-            {msg ? <><h3>{msg}</h3>
-            <a href="/" className="btn btn-sm bg-primary text-white mt-3">Back</a></>:<></>}
-            
+            {msg ? <><h3>{msg.message}</h3>
+                <a href="/" className="btn btn-sm bg-primary text-white mt-3">Back</a></> : <></>}
+
 
             <div className="row mx-3">
-                {posts.map((ele, index) => (
+                {posts ? posts.map((ele, index) => (
                     <div key={ele.id} className="col-md-4 mb-4">
                         <div className="card">
                             <div className="card-body">
@@ -104,7 +114,7 @@ function Landing() {
                             </div>
                         </div>
                     </div>
-                ))}
+                )) : <><h1>No Posts</h1></>}
             </div>
         </>))
 }

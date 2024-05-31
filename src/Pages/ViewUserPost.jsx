@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { useLocation,useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import api from '../Utils/Axios';
+import { useQueryClient } from '@tanstack/react-query'
 
 function ViewUserPost() {
     const { state } = useLocation();
     const [load, setload] = useState(false)
     const post = state?.ele;
-    // console.log(post)
-
+    const queryClient = useQueryClient();
     const navigate = useNavigate();
 
     if (!post) {
@@ -19,11 +19,13 @@ function ViewUserPost() {
         navigate(`/updatepost`, { state: { ele: post } });
     };
 
-    const deletee = async function (id) {
+    const deletee = async function () {
         setload(true)
         try {
-          const res = await api.delete(`/api/uposts/${id}`);
-        //   console.log(res)
+          const res = await api.delete(`/api/uposts/${post.id}`);
+        queryClient.setQueryData(['uposts'], (oldPosts) => {
+            return oldPosts.filter(oldPost => oldPost.id !== post.id);
+        });
         } catch (err) {
           console.log(err.response);
         } finally {
@@ -63,7 +65,7 @@ function ViewUserPost() {
       
                     <Link to="/home" className="btn btn-sm bg-primary text-white mt-3 mx-3">Back</Link>
                     <button onClick={navigateToUpdate} className="btn btn-sm bg-warning text-white mt-3">Update</button>
-                    <button className="btn btn-sm bg-danger text-white mt-3 mx-3" onClick={() => deletee(post.id)}>Delete</button>
+                    <button className="btn btn-sm bg-danger text-white mt-3 mx-3" onClick={() => deletee()}>Delete</button>
                 </div>
             </div>
         </div>

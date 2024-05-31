@@ -1,42 +1,52 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import api from '../Utils/Axios';
+import { useQueryClient } from '@tanstack/react-query'
 
 function UpdatePost() {
     const formRef = useRef(null);
     const navigate = useNavigate();
     const location = useLocation();
-    const [load, setload] = useState(false)
+    const [load, setLoad] = useState(false);
     const post = location.state?.ele;
 
-
-    async function handleSubmit(event,updateid) {
+    const queryClient = useQueryClient();
+    async function handleSubmit(event) {
+        console.log("handleSubmit")
         event.preventDefault();
-        console.log(updateid)
-        setload(true);
+        setLoad(true);
+
         const formData = new FormData(formRef.current);
+        const oldPosts = queryClient.getQueryData(['uposts']);
         try {
-            const res = await api.patch(`/api/uposts/${updateid}`, formData, {
+            const res = await api.patch(`/api/uposts/${post.id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            console.log(res)
+            const updatedPosts = oldPosts.map(oldPost =>
+                oldPost.id === post.id ? res.data : oldPost
+            );
+            
+            queryClient.setQueryData(['uposts'], updatedPosts);
+
         } catch (err) {
             console.log(err.response);
         } finally {
-            setload(false);
+            setLoad(false);
+            navigate('/home');
         }
-        navigate('/home');
     };
 
+    if (load) {
+        return <h1>Loading...</h1>;
+    }
 
     return (
         <div className="container mt-5 d-flex justify-content-center">
             <div className="card bg-dark text-white" style={{ maxWidth: '600px', width: '100%' }}>
                 <div className="card-body bg-white text-dark p-4 rounded">
-                    <form ref={formRef} onSubmit={(e)=>handleSubmit(e,post.id)}>
-
+                    <form ref={formRef} onSubmit={handleSubmit}>
                         <div className="mb-3">
                             <label htmlFor="usn" className="form-label">USN</label>
                             <input type="text" className="form-control" id="usn" name="usn" defaultValue={post.usn} required />
@@ -46,7 +56,6 @@ function UpdatePost() {
                             <label htmlFor="branch" className="form-label">Branch</label>
                             <input type="text" className="form-control" id="branch" name="branch" defaultValue={post.branch} required />
                         </div>
-
 
                         <div className="mb-3">
                             <label htmlFor="link" className="form-label">Link (Google Drive link)</label>
@@ -62,30 +71,37 @@ function UpdatePost() {
                             <label htmlFor="companyName" className="form-label">Company Name</label>
                             <input type="text" className="form-control" id="companyName" name="company" defaultValue={post.company} required />
                         </div>
+
                         <div className="mb-3">
                             <label htmlFor="aboutCompany" className="form-label">About Company</label>
                             <textarea className="form-control" id="aboutCompany" name="about_company" rows="3" defaultValue={post.about_company} required></textarea>
                         </div>
+
                         <div className="mb-3">
                             <label htmlFor="eligibility" className="form-label">Eligibility</label>
                             <input type="text" className="form-control" id="eligibility" name="eligiblity" defaultValue={post.eligiblity} required />
                         </div>
+
                         <div className="mb-3">
                             <label htmlFor="ctc" className="form-label">CTC</label>
                             <input type="text" className="form-control" id="ctc" name="ctc" defaultValue={post.ctc} required />
                         </div>
+
                         <div className="mb-3">
                             <label htmlFor="rounds" className="form-label">Rounds</label>
                             <input type="text" className="form-control" id="rounds" name="rounds" defaultValue={post.rounds} required />
                         </div>
+
                         <div className="mb-3">
                             <label htmlFor="description" className="form-label">Description</label>
                             <textarea className="form-control" id="description" name="desc" rows="3" defaultValue={post.desc} required></textarea>
                         </div>
+
                         <div className="mb-3">
                             <label htmlFor="description" className="form-label">User Image</label>
-                            <input type="file" name='image' accept="image/*" />
+                            <input type="file" name="image" accept="image/*" />
                         </div>
+
                         <div className="d-flex justify-content-center">
                             <button type="submit" className="btn btn-primary">Submit</button>
                         </div>

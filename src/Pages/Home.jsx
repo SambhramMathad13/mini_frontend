@@ -1,37 +1,18 @@
-import React, { useState, useEffect } from 'react';
 import Navbar from "../Components/Navbar";
 import { useNavigate } from 'react-router-dom';
 import api from '../Utils/Axios';
 import { formatDistanceToNow } from 'date-fns';
+import { useQuery } from '@tanstack/react-query';
+
+
+const fetchPosts = async () => {
+  const res = await api.get('/api/uposts');
+  return res.data;
+};
 
 function Home() {
+  const { data: posts, isLoading: load, error: msg } = useQuery({ queryKey: ['uposts'], queryFn: fetchPosts,staleTime: 900000 })
   const navigate = useNavigate();
-  const [load, setLoad] = useState(true);
-  const [posts, setPosts] = useState([]);
-  const [msg, setMsg] = useState('');
-
-  useEffect(() => {
-    getPosts();
-  }, []);
-
-  async function getPosts() {
-    setLoad(true);
-    try {
-      const res = await api.get('/api/uposts');
-      const data = res.data;
-      setPosts(data);
-      if (data.length === 0) {
-        setMsg("You have not created any posts");
-      } else {
-        setMsg('');
-      }
-    } catch (err) {
-      console.log(err.response.data);
-    } finally {
-      setLoad(false);
-    }
-  }
-
 
   const truncateText = (text, maxLength) => {
     if (text.length > maxLength) {
@@ -56,13 +37,14 @@ function Home() {
       <br />
 
       <div className="row mx-3">
-        {msg ? (
-          <div className="col-12">
-            <div className="d-flex justify-content-center">
-            <h4 style={{ color: 'white' }}>You have not created any posts</h4>
-            </div>
+      {msg ? (
+        <div className="col-12">
+          <div className="d-flex justify-content-center">
+            <h4 style={{ color: 'white' }}>{msg.message}</h4>
           </div>
-        ) : (
+        </div>
+      ) : (
+        posts ? (
           posts.map((ele) => (
             <div key={ele.id} className="col-md-4 mb-4">
               <div className="card">
@@ -92,7 +74,12 @@ function Home() {
               </div>
             </div>
           ))
-        )}
+        ) : (
+          <div className="col-12">
+            <h1>No Posts</h1>
+          </div>
+        )
+      )}
       </div>
       <br />
       <div className="d-flex justify-content-center">
