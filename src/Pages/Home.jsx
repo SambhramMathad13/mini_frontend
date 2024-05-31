@@ -5,6 +5,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { useQuery } from '@tanstack/react-query';
 
 
+
 const fetchPosts = async () => {
   const res = await api.get('/api/uposts');
   return res.data;
