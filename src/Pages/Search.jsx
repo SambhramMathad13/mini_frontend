@@ -2,36 +2,37 @@ import React, { useState, useEffect } from 'react';
 import api from '../Utils/Axios';
 import Navbar from "../Components/Navbar";
 import { formatDistanceToNow } from 'date-fns';
-import { useNavigate } from "react-router-dom";
-import { Link } from 'react-router-dom';
+import { useNavigate, useLocation } from "react-router-dom";
 
-function Landing() {
+function Search() {
     const [load, setload] = useState(true);
     const navigate = useNavigate();
+    const location = useLocation();
     const [posts, setposts] = useState([]);
-    const [search, setsearchkey] = useState('');
     const [msg, setmsg] = useState('');
 
-    useEffect(() => {
-        getposts();
-    }, []);
+    const searchKey = location.state?.searchKey;
 
-    async function getposts() {
+    useEffect(() => {
+        if (searchKey) {
+            searchposts(searchKey);
+        }
+    }, [searchKey]);
+
+    async function searchposts(searchKey) {
         setload(true);
         try {
-            const res = await api.get('/api/tposts');
+            const res = await api.get(`/api/posts/search/?search=${searchKey}`);
             const data = res.data;
+            if (data.length === 0) {
+                setmsg("No posts found");
+            }
             setposts(data);
         } catch (err) {
             console.log(err.response.data);
         } finally {
             setload(false);
         }
-    }
-
-    async function searchposts(e) {
-        e.preventDefault();
-        navigate(`/search`, { state: { searchKey: search } });
     }
 
     const truncateText = (text, maxLength) => {
@@ -48,13 +49,10 @@ function Landing() {
     return (load ? (<h1>Loading...</h1>) : (
         <>
             <Navbar isauth={false} />
-            <h1>Landing page</h1> <br /> <br />
-            <form onSubmit={searchposts}>
-                <input type="text" onChange={(e) => setsearchkey(e.target.value)} />
-                <button type="submit">Search</button>
-            </form> <br /><br />
-            {msg ? <><h3>{msg}</h3>
-            <a href="/" className="btn btn-sm bg-primary text-white mt-3">Back</a></>:<></>}
+            <h1>Search Results</h1> <br /> <br />
+            <button onClick={() => navigate('/')} className="btn btn-sm bg-primary text-white mt-3">Back</button>
+            <br /><br />
+            {msg ? <><h3>{msg}</h3></> : <></>}
             <div className="row mx-3">
                 {posts.map((ele, index) => (
                     <div key={ele.id} className="col-md-4 mb-4">
@@ -89,4 +87,4 @@ function Landing() {
         </>))
 }
 
-export default Landing;
+export default Search;
