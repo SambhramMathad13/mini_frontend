@@ -15,6 +15,11 @@ import { BrowserRouter, Route, Routes,Navigate } from "react-router-dom"
 import ViewUserPost from "./Pages/ViewUserPost"
 import UpdatePost from "./Pages/UpdatePost"
 import Search from "./Pages/Search"
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
+const queryClient = new QueryClient();
+
 function App() {
   function Logout() {
     localStorage.clear()
@@ -28,6 +33,7 @@ function App() {
   return (
     <>
       <h1>Mini project</h1>
+      <QueryClientProvider client={queryClient}>
       <BrowserRouter>
             
             <Routes>
@@ -52,6 +58,8 @@ function App() {
               <Route path='*' element={<_404 />} />
             </Routes>
       </BrowserRouter>
+      <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
     </>
   )
 }

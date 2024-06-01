@@ -1,33 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import api from '../Utils/Axios';
-import Navbar from "../Components/Navbar";
+import React, { useState } from 'react'
+import Navbar from "../Components/Navbar"
 import { formatDistanceToNow } from 'date-fns';
 import { useNavigate } from "react-router-dom";
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
+
+
+const fetchPosts = async () => {
+    const res = await axios.get('https://mytodolistwebapp.pythonanywhere.com/api/tposts');
+    return res.data;
+};
+
 
 function Landing() {
-    const [load, setload] = useState(true);
+    const { data: posts, isLoading: load, error: msg } = useQuery({ queryKey: ['tposts'], queryFn: fetchPosts,staleTime: 900000 })
     const navigate = useNavigate();
-    const [posts, setposts] = useState([]);
-    const [search, setsearchkey] = useState('');
-    const [msg, setmsg] = useState('');
+    const [search, setsearchkey] = useState('')
 
-    useEffect(() => {
-        getposts();
-    }, []);
 
-    async function getposts() {
-        setload(true);
-        try {
-            const res = await api.get('/api/tposts');
-            const data = res.data;
-            setposts(data);
-        } catch (err) {
-            console.log(err.response.data);
-        } finally {
-            setload(false);
-        }
-    }
 
     async function searchposts(e) {
         e.preventDefault();
@@ -42,21 +32,24 @@ function Landing() {
     };
 
     const view = function (ele) {
-        navigate(`/view`, { state: { ele } });
-    };
+        const from = 'landing';
+        navigate('/view', { state: { ele, from } });
+    }
 
     return (load ? (<h1>Loading...</h1>) : (
         <>
             <Navbar isauth={false} />
-            <h1>Landing page</h1> <br /> <br />
+            <h1>Landing page</h1 > <br /> <br />
             <form onSubmit={searchposts}>
                 <input type="text" onChange={(e) => setsearchkey(e.target.value)} />
                 <button type="submit">Search</button>
             </form> <br /><br />
-            {msg ? <><h3>{msg}</h3>
-            <a href="/" className="btn btn-sm bg-primary text-white mt-3">Back</a></>:<></>}
+            {msg ? <><h3>{msg.message}</h3>
+                <a href="/" className="btn btn-sm bg-primary text-white mt-3">Back</a></> : <></>}
+
+
             <div className="row mx-3">
-                {posts.map((ele, index) => (
+                {posts ? posts.map((ele, index) => (
                     <div key={ele.id} className="col-md-4 mb-4">
                         <div className="card">
                             <div className="card-body">
@@ -84,9 +77,9 @@ function Landing() {
                             </div>
                         </div>
                     </div>
-                ))}
+                )) : <><h1>No Posts</h1></>}
             </div>
         </>))
 }
 
-export default Landing;
+export default Landing

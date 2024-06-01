@@ -1,16 +1,22 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 function ViewPost() {
     const { state } = useLocation();
     const post = state?.ele;
-    // console.log(post)
+    const from = state?.from;
+    const searchKey = state?.searchKey;
+    const navigate = useNavigate();
+
 
     if (!post) {
         return <div className="container mt-5">Post not found</div>;
     }
-
+    const goBack = () => {
+        navigate('/search', { state: { searchKey } });
+    };
     return (
         <div className="container mt-5">
             <div className="card">
@@ -40,7 +46,7 @@ function ViewPost() {
                     <p className="card-text"><strong>Rounds:</strong> {post.rounds}</p>
                     <p className="card-text"><strong>Description:</strong> {post.desc}</p>
       
-                    <Link to="/" className="btn btn-sm bg-primary text-white mt-3">Back</Link>
+                    {from=="search"?<button className="btn btn-primary btn-sm mt-3" onClick={() => goBack()}>Back</button>:<Link to="/" className="btn btn-sm bg-primary text-white mt-3">Back</Link>}
                 </div>
             </div>
         </div>
