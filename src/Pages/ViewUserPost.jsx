@@ -3,6 +3,17 @@ import { useLocation,useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import api from '../Utils/Axios';
 import { useQueryClient } from '@tanstack/react-query'
+import { Button } from "@/Components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/Components/ui/card";
+import { ThemeProvider } from "@/Components/theme-provider"
+import {ModeToggle} from "@/Components/mode-toggle"
 
 function ViewUserPost() {
     const { state } = useLocation();
@@ -35,40 +46,51 @@ function ViewUserPost() {
       }
 
     return (load ? (<h1>Loading...</h1>) : (
-        <div className="container mt-5">
-            <div className="card">
-                <div className="card-body">
-                    <div className="d-flex align-items-center justify-content-between mb-3">
-                        <div className="d-flex align-items-center">
-                            {post.author && post.image && (
-                                <img 
-                                    src={post.image} 
-                                    alt={`${post.author.username} profile`} 
-                                    className="rounded-circle me-3" 
-                                    style={{ width: '50px', height: '50px' }} 
-                                />
-                            )}
-                            <div>
-                                <h5 className="card-title mb-0">Company name: {post.company}</h5>
-                                {post.author && post.author.username && (
-                                    <h6 className="card-subtitle mb-2 text-muted">by - {post.author.username}</h6>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                    <p className="card-text"><strong>Branch:</strong> {post.branch}</p>
-                    <p className="card-text"><strong>About Company:</strong> {post.about_company}</p>
-                    <p className="card-text"><strong>CTC:</strong> {post.ctc}</p>
-                    <p className="card-text"><strong>Eligibility:</strong> {post.eligiblity}</p>
-                    <p className="card-text"><strong>Rounds:</strong> {post.rounds}</p>
-                    <p className="card-text"><strong>Description:</strong> {post.desc}</p>
-      
-                    <Link to="/home" className="btn btn-sm bg-primary text-white mt-3 mx-3">Back</Link>
-                    <button onClick={navigateToUpdate} className="btn btn-sm bg-warning text-white mt-3">Update</button>
-                    <button className="btn btn-sm bg-danger text-white mt-3 mx-3" onClick={() => deletee()}>Delete</button>
-                </div>
-            </div>
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <div className="absolute top-4 right-4">
+          <ModeToggle />
         </div>
+        <div className="flex justify-center mt-10">
+        <Card className="w-full max-w-xl mx-auto">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                {post.author && post.image && (
+                  <img
+                    src={post.image}
+                    alt={`${post.author.username} profile`}
+                    className="rounded-full w-12 h-12 mr-3"
+                  />
+                )}
+                <div>
+                  <CardTitle>Company name: {post.company}</CardTitle>
+                  {post.author && post.author.username && (
+                    <CardDescription>by - {post.author.username}</CardDescription>
+                  )}
+                </div>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <p><strong>Branch:</strong> {post.branch}</p>
+            <p><strong>About Company:</strong> {post.about_company}</p>
+            <p><strong>CTC:</strong> {post.ctc}</p>
+            <p><strong>Eligibility:</strong> {post.eligiblity}</p>
+            <p><strong>Rounds:</strong> {post.rounds}</p>
+            <p><strong>Description:</strong> {post.desc}</p>
+          </CardContent>
+          <CardFooter className="flex justify-between">
+            <Link to="/home">
+              <Button variant="outline">Back</Button>
+            </Link>
+            <div className="flex space-x-3">
+              <Button onClick={navigateToUpdate}>Update</Button>
+              <Button onClick={deletee}>Delete</Button>
+            </div>
+          </CardFooter>
+        </Card>
+      </div>
+      </ThemeProvider>
     )
     );
 }

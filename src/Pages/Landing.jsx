@@ -79,7 +79,8 @@ function Landing() {
                     </div>
                 )) : <><h1>No Posts</h1></>}
             </div>
-        </>))
+        </>
+        ))
 }
 
 export default Landing
