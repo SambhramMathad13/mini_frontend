@@ -12,9 +12,9 @@ const searchposts = async (s) => {
 function Search() {
     const navigate = useNavigate();
     const location = useLocation();
-    
+
     const searchKey = location.state?.searchKey;
-    
+
     const { data: posts, isLoading: load, error: msg } = useQuery(
         {
             queryKey: ['search', searchKey],
@@ -23,11 +23,15 @@ function Search() {
         }
     );
 
-  
-    if (posts.length==0)
-        {
-            return(<><h1>No Search result found...</h1></>)
-        }
+    // console.log(posts)
+
+    if (!Array.isArray(posts) || posts.length === 0) {
+        return (load ? (<h1>Loading...</h1>) : (
+          <div>
+            <h1>No Search result found...</h1>
+          </div>
+        ));
+      }
 
     const truncateText = (text, maxLength) => {
         if (text.length > maxLength) {
@@ -38,7 +42,7 @@ function Search() {
 
     const view = (ele) => {
         const from = 'search';
-        navigate('/view', { state: { ele, from,searchKey } });
+        navigate('/view', { state: { ele, from, searchKey } });
     };
 
     return (
