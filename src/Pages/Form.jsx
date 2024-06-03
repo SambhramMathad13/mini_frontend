@@ -2,6 +2,18 @@ import React, { useRef,useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../Utils/Axios';
 import { useQueryClient } from '@tanstack/react-query'
+import { Button } from "@/Components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/Components/ui/card";
+import { Textarea } from '@/Components/ui/textarea';
+import { Input } from "@/Components/ui/input";
+import { ThemeProvider } from "@/Components/theme-provider"
+import {ModeToggle} from "@/Components/mode-toggle"
 
 
 function Form() {
@@ -34,65 +46,72 @@ function Form() {
   };
 
   return (load ? (<h1>Loading...</h1>) : (
-    <div className="container mt-5 d-flex justify-content-center">
-      <div className="card bg-dark text-white" style={{ maxWidth: '600px', width: '100%' }}>
-        <div className="card-body bg-white text-dark p-4 rounded">
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+<div className="absolute top-4 right-4">
+          <ModeToggle />
+        </div>
+    <div className="flex justify-center mt-10">
+      <Card className="w-full max-w-xl mx-auto">
+        <CardHeader>
+          <CardTitle>Create New Post</CardTitle>
+        </CardHeader>
+        <CardContent>
           <form ref={formRef} onSubmit={handleSubmit}>
-            <div className="mb-3">
-              <label htmlFor="usn" className="form-label">USN</label>
-              <input type="text" className="form-control" id="usn" name="usn" required />
-            </div>
-
-            <div className="mb-3">
-              <label htmlFor="branch" className="form-label">Branch</label>
-              <input type="text" className="form-control" id="branch" name="branch" required />
-            </div>
-
-            <div className="mb-3">
-              <label htmlFor="link" className="form-label">Link (Google Drive link)</label>
-              <input type="url" className="form-control" id="link" name="link"  />
-            </div>
-            
-            <div className="mb-3">
-              <label htmlFor="socialLink" className="form-label">Social Link</label>
-              <input type="url" className="form-control" id="socialLink" name="social_link"  />
-            </div>
-
-            <div className="mb-3">
-              <label htmlFor="companyName" className="form-label">Company Name</label>
-              <input type="text" className="form-control" id="companyName" name="company" required />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="aboutCompany" className="form-label">About Company</label>
-              <textarea className="form-control" id="aboutCompany" name="about_company" rows="3" required></textarea>
-            </div>
-            <div className="mb-3">
-              <label htmlFor="eligibility" className="form-label">Eligibility</label>
-              <input type="text" className="form-control" id="eligibility" name="eligiblity" required />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="ctc" className="form-label">CTC</label>
-              <input type="text" className="form-control" id="ctc" name="ctc" required />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="rounds" className="form-label">Rounds</label>
-              <input type="text" className="form-control" id="rounds" name="rounds" required />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="description" className="form-label">Description</label>
-              <textarea className="form-control" id="description" name="desc" rows="3" required></textarea>
-            </div>
-            <div className="mb-3">
-              <label htmlFor="description" className="form-label">User image</label>
-              <input type="file" name='image' accept="image/*" />
-            </div>
-            <div className="d-flex justify-content-center">
-              <button type="submit" className="btn btn-primary">Submit</button>
+            <div className="space-y-4">
+              <div className="flex flex-col space-y-1.5">
+                <label htmlFor="usn">USN</label>
+                <Input id="usn" name="usn" required />
+              </div>
+              <div className="flex flex-col space-y-1.5">
+                <label htmlFor="branch">Branch</label>
+                <Input id="branch" name="branch" required />
+              </div>
+              <div className="flex flex-col space-y-1.5">
+                <label htmlFor="link">Link (Google Drive link)</label>
+                <Input id="link" name="link" type="url" />
+              </div>
+              <div className="flex flex-col space-y-1.5">
+                <label htmlFor="socialLink">Social Link</label>
+                <Input id="socialLink" name="social_link" type="url" />
+              </div>
+              <div className="flex flex-col space-y-1.5">
+                <label htmlFor="companyName">Company Name</label>
+                <Input id="companyName" name="company" required />
+              </div>
+              <div className="flex flex-col space-y-1.5">
+                <label htmlFor="aboutCompany">About Company</label>
+                <Textarea id="aboutCompany" name="about_company" rows="3" required />
+              </div>
+              <div className="flex flex-col space-y-1.5">
+                <label htmlFor="eligibility">Eligibility</label>
+                <Input id="eligibility" name="eligiblity" required />
+              </div>
+              <div className="flex flex-col space-y-1.5">
+                <label htmlFor="ctc">CTC</label>
+                <Input id="ctc" name="ctc" required />
+              </div>
+              <div className="flex flex-col space-y-1.5">
+                <label htmlFor="rounds">Rounds</label>
+                <Input id="rounds" name="rounds" required />
+              </div>
+              <div className="flex flex-col space-y-1.5">
+                <label htmlFor="description">Description</label>
+                <Textarea id="description" name="desc" rows="3" required />
+              </div>
+              <div className="flex flex-col space-y-1.5">
+                <label htmlFor="image">User Image</label>
+                <Input type="file" name="image" accept="image/*" />
+              </div>
             </div>
           </form>
-        </div>
-      </div>
+        </CardContent>
+        <CardFooter className="flex justify-between">
+          <Button variant="outline" onClick={() => navigate(-1)}>Cancel</Button>
+          <Button type="submit" onClick={() => formRef.current.submit()}>Submit</Button>
+        </CardFooter>
+      </Card>
     </div>
+    </ThemeProvider>
   )
   );
 }

@@ -15,6 +15,8 @@ import {
   } from "@/Components/ui/card";
   import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
+import { ThemeProvider } from "@/Components/theme-provider"
+import {ModeToggle} from "@/Components/mode-toggle"
 
 function Login() {
     const form=useRef()
@@ -45,9 +47,13 @@ function Login() {
     
   return (load ? (<h1>Loading...</h1>) : (
     <>
+    
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
     <Navbar isauth={false}/>
-
-<Card className="w-[350px] mx-auto mt-10">
+    <div className="absolute top-4 right-4">
+          <ModeToggle />
+    </div>
+    <Card className="w-[400px] mx-auto">
       <CardHeader>
         <CardTitle>Login</CardTitle>
         <CardDescription>Access your account</CardDescription>
@@ -67,11 +73,16 @@ function Login() {
           </div>
         </form>
       </CardContent>
-      <CardFooter className="flex justify-between">
-        <Link to="/forgotpassword" className="text-blue-500">Forgot password?</Link>
-        <Button type="submit" onClick={submit}>Submit</Button>
+      <CardFooter className="flex flex-col space-y-3">
+        <Link to="/forgotpassword" className="text-blue-500 ">Forgot password?</Link>
+        <Link to="/register">Don't have an account? <span className="text-blue-500">Register</span> </Link>
+        <div className="flex justify-between w-full">
+          <Button variant="outline" onClick={() => navigate('/')}>Back</Button>
+          <Button type="submit" onClick={submit}>Submit</Button>
+        </div>
       </CardFooter>
     </Card>
+    </ThemeProvider>
     </>
   )
   )

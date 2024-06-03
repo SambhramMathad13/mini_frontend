@@ -6,8 +6,6 @@ function Navbar(props) {
     <div>
 
         <h1>Navbar</h1>
-
-       
         {props.isauth ?(<><Link to="/">Home</Link> <br /> 
         <Link to="/changepassword">ChangePassword</Link> <br /> 
         <Link to="/logout">Logout</Link> <br />

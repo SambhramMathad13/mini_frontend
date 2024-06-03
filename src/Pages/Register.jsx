@@ -3,8 +3,8 @@ import { useRef } from "react";
 import api from "../Utils/Axios";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../Components/Navbar";
+import { Link } from 'react-router-dom'
 import { Button } from "@/Components/ui/button";
-
 import {
   Card,
   CardContent,
@@ -16,11 +16,14 @@ import {
 
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
+import { ThemeProvider } from "@/Components/theme-provider"
+import {ModeToggle} from "@/Components/mode-toggle"
 
 function Register() {
   const form = useRef();
   const [load, setload] = useState(false);
   const [msg, setmsg] = useState("");
+  const navigate = useNavigate();
 
   async function submit(event) {
     setload(true);
@@ -54,9 +57,12 @@ function Register() {
     <h1>Loading...</h1>
   ) : (
     <>
-      <Navbar isauth={false} />
-
-<Card className="w-[350px] mx-auto mt-10">
+<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+    <Navbar isauth={false}/>
+    <div className="absolute top-4 right-4">
+          <ModeToggle />
+        </div>
+      <Card className="w-[400px] mx-auto">
       <CardHeader>
         <CardTitle>Register</CardTitle>
         <CardDescription>Create a new account</CardDescription>
@@ -80,11 +86,15 @@ function Register() {
           </div>
         </form>
       </CardContent>
-      <CardFooter className="flex justify-between">
-        <Button variant="outline">Cancel</Button>
-        <Button type="submit" onClick={submit}>Submit</Button>
+      <CardFooter className="flex flex-col space-y-3">
+        <Link to="/login">Already have an account? <span className="text-blue-500">Login</span></Link>
+        <div className="flex justify-between w-full">
+          <Button variant="outline" onClick={() => navigate('/')}>Cancel</Button>
+          <Button type="submit" onClick={submit}>Submit</Button>
+        </div>
       </CardFooter>
     </Card>
+    </ThemeProvider>
     </>
   );
 }
