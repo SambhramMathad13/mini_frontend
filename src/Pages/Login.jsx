@@ -15,8 +15,6 @@ import {
   } from "@/Components/ui/card";
   import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
-import { ThemeProvider } from "@/Components/theme-provider"
-import {ModeToggle} from "@/Components/mode-toggle"
 
 function Login() {
     const form=useRef()
@@ -48,11 +46,7 @@ function Login() {
   return (load ? (<h1>Loading...</h1>) : (
     <>
     
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
     <Navbar isauth={false}/>
-    <div className="absolute top-4 right-4">
-          <ModeToggle />
-    </div>
     <Card className="w-[400px] mx-auto">
       <CardHeader>
         <CardTitle>Login</CardTitle>
@@ -82,7 +76,6 @@ function Login() {
         </div>
       </CardFooter>
     </Card>
-    </ThemeProvider>
     </>
   )
   )

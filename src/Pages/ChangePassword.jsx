@@ -13,8 +13,6 @@ import {
 } from "@/Components/ui/card";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
-import { ThemeProvider } from "@/Components/theme-provider"
-import {ModeToggle} from "@/Components/mode-toggle"
 
 function ChangePassword() {
     const [old_password, setpass1] = useState('')
@@ -50,14 +48,10 @@ function ChangePassword() {
 
   return (load ? (<h1>Loading...</h1>) : (
     <>
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <h3>{msg}</h3>
-      <div className="absolute top-4 right-4">
-          <ModeToggle />
-    </div>
       {msg === "" && (
         <>
-          <div className="flex justify-center">
+          <div className="flex justify-center mt-20">
       <Card className="w-full max-w-xl mx-auto">
         <CardHeader>
           <CardTitle>Change Password</CardTitle>
@@ -113,7 +107,6 @@ function ChangePassword() {
     </div>
         </>
       )}
-</ThemeProvider>
     </>
     )
 

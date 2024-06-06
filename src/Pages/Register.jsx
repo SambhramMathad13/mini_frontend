@@ -16,7 +16,6 @@ import {
 
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
-import { ThemeProvider } from "@/Components/theme-provider"
 import {ModeToggle} from "@/Components/mode-toggle"
 
 function Register() {
@@ -57,11 +56,8 @@ function Register() {
     <h1>Loading...</h1>
   ) : (
     <>
-<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
     <Navbar isauth={false}/>
-    <div className="absolute top-4 right-4">
-          <ModeToggle />
-        </div>
+      <div className="mt-12">
       <Card className="w-[400px] mx-auto">
       <CardHeader>
         <CardTitle>Register</CardTitle>
@@ -94,7 +90,7 @@ function Register() {
         </div>
       </CardFooter>
     </Card>
-    </ThemeProvider>
+      </div>
     </>
   );
 }

@@ -12,8 +12,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/Components/ui/card";
-import { ThemeProvider } from "@/Components/theme-provider"
-import {ModeToggle} from "@/Components/mode-toggle"
 
 function ViewUserPost() {
     const { state } = useLocation();
@@ -46,11 +44,7 @@ function ViewUserPost() {
       }
 
     return (load ? (<h1>Loading...</h1>) : (
-      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <div className="absolute top-4 right-4">
-          <ModeToggle />
-        </div>
-        <div className="flex justify-center mt-10">
+        <div className="flex justify-center mt-20">
         <Card className="w-full max-w-xl mx-auto">
           <CardHeader>
             <div className="flex items-center justify-between">
@@ -90,7 +84,6 @@ function ViewUserPost() {
           </CardFooter>
         </Card>
       </div>
-      </ThemeProvider>
     )
     );
 }

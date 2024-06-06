@@ -11,8 +11,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/Components/ui/card";
-import { ThemeProvider } from "@/Components/theme-provider"
-import {ModeToggle} from "@/Components/mode-toggle"
 
 function ViewPost() {
     const { state } = useLocation();
@@ -29,10 +27,6 @@ function ViewPost() {
         navigate('/search', { state: { searchKey } });
     };
     return (
-      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <div className="absolute top-4 right-4">
-          <ModeToggle />
-        </div>
         <div className="flex justify-center mt-10">
       <Card className="w-full max-w-xl mx-auto">
         <CardHeader>
@@ -73,7 +67,6 @@ function ViewPost() {
         </CardFooter>
       </Card>
     </div>
-    </ThemeProvider>
     );
 }
 
