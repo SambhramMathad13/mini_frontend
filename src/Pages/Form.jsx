@@ -12,7 +12,6 @@ import {
 } from "@/Components/ui/card";
 import { Textarea } from '@/Components/ui/textarea';
 import { Input } from "@/Components/ui/input";
-import { ThemeProvider } from "@/Components/theme-provider"
 import {ModeToggle} from "@/Components/mode-toggle"
 
 
@@ -46,10 +45,6 @@ function Form() {
   };
 
   return (load ? (<h1>Loading...</h1>) : (
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-<div className="absolute top-4 right-4">
-          <ModeToggle />
-        </div>
     <div className="flex justify-center mt-10">
       <Card className="w-full max-w-xl mx-auto">
         <CardHeader>
@@ -103,15 +98,14 @@ function Form() {
                 <Input type="file" name="image" accept="image/*" />
               </div>
             </div>
+            <CardFooter className="flex justify-between mt-6">
+              <Button variant="outline" onClick={() => navigate(-1)}>Cancel</Button>
+              <Button type="submit">Submit</Button>
+            </CardFooter>
           </form>
         </CardContent>
-        <CardFooter className="flex justify-between">
-          <Button variant="outline" onClick={() => navigate(-1)}>Cancel</Button>
-          <Button type="submit" onClick={() => formRef.current.submit()}>Submit</Button>
-        </CardFooter>
       </Card>
     </div>
-    </ThemeProvider>
   )
   );
 }

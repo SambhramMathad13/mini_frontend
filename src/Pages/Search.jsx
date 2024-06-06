@@ -3,6 +3,14 @@ import Navbar from "../Components/Navbar";
 import { formatDistanceToNow } from 'date-fns';
 import { useNavigate, useLocation } from "react-router-dom";
 import { useQuery } from '@tanstack/react-query';
+import { Button } from "@/Components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/Components/ui/card";
 
 const searchposts = async (s) => {
     const res = await axios.get(`https://mytodolistwebapp.pythonanywhere.com/api/posts/search/?search=${s}`);
@@ -49,43 +57,50 @@ function Search() {
         load ? (<h1>Loading...</h1>) : (
             <>
                 <Navbar isauth={false} />
-                <h1>Search Results</h1>
-                <br />
-                <br />
-                <button onClick={() => navigate('/')} className="btn btn-sm bg-primary text-white mt-3">Back</button>
-                <br /><br />
+                <h1 className="text-3xl font-bold text-center my-6">Search Results</h1>
+                <div className="flex justify-center mb-6">
+                    <Button onClick={() => navigate('/')}>Back</Button>
+                </div>
                 {msg ? <h3>{msg.message}</h3> : null}
-                <div className="row mx-3">
-                    {posts?.map((ele, index) => (
-                        <div key={ele.id} className="col-md-4 mb-4">
-                            <div className="card">
-                                <div className="card-body">
-                                    <div className="d-flex align-items-center mb-3">
-                                        <img
-                                            src={ele.image}
-                                            alt={`${ele.author.username} profile`}
-                                            className="rounded-circle me-3"
-                                            style={{ width: '50px', height: '50px', border: '0.1px solid' }}
-                                        />
-                                        <div>
-                                            <h5 className="card-subtitle mb-2 text-muted">{ele.author.username}</h5>
-                                        </div>
-                                        <small className="text-muted ms-5">
-                                            {formatDistanceToNow(new Date(ele.created_at), { addSuffix: true })}
-                                        </small>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mx-3">
+                    {posts?.map((ele) => (
+                        <Card key={ele.id} className="w-full">
+                            <CardHeader>
+                                <div className="flex items-center mb-3">
+                                    <img
+                                        src={ele.image}
+                                        alt={`${ele.author.username} profile`}
+                                        className="rounded-full mr-3"
+                                        style={{ width: '50px', height: '50px', border: '0.1px solid' }}
+                                    />
+                                    <div>
+                                        <h5 className="text-gray-500">{ele.author.username}</h5>
                                     </div>
-                                    <h6 className="card-subtitle mb-2 text-muted">
-                                        <strong>Company name: {ele.company}</strong>
-                                    </h6>
-                                    <p className="card-text">Branch: {ele.branch}</p>
-                                    <p className="card-text"><strong>About company:</strong> {truncateText(ele.about_company, 100)}</p>
-                                    <p className="card-text"><strong>CTC:</strong> {ele.ctc}</p>
-                                    <p className="card-text"><strong>Eligibility:</strong> {truncateText(ele.eligiblity, 100)}</p>
-                                    <p className="card-text"><strong>Rounds:</strong> {ele.rounds}</p>
-                                    <button className="btn btn-primary btn-sm mt-3" onClick={() => view(ele)}>Read More</button>
+                                    <small className="text-gray-400 ml-auto">
+                                        {formatDistanceToNow(new Date(ele.created_at), { addSuffix: true })}
+                                    </small>
                                 </div>
-                            </div>
-                        </div>
+                                <CardTitle>Company name: {ele.company}</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-gray-700">Branch: {ele.branch}</p>
+                                <p className="text-gray-700">
+                                    <strong>About company:</strong> {truncateText(ele.about_company, 100)}
+                                </p>
+                                <p className="text-gray-700">
+                                    <strong>CTC:</strong> {ele.ctc}
+                                </p>
+                                <p className="text-gray-700">
+                                    <strong>Eligibility:</strong> {truncateText(ele.eligiblity, 100)}
+                                </p>
+                                <p className="text-gray-700">
+                                    <strong>Rounds:</strong> {ele.rounds}
+                                </p>
+                            </CardContent>
+                            <CardFooter className="flex justify-center">
+                                <Button onClick={() => view(ele)}>Read More</Button>
+                            </CardFooter>
+                        </Card>
                     ))}
                 </div>
             </>

@@ -17,6 +17,8 @@ import UpdatePost from "./Pages/UpdatePost"
 import Search from "./Pages/Search"
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { ThemeProvider } from "@/Components/theme-provider"
+import {ModeToggle} from "@/Components/mode-toggle"
 
 const queryClient = new QueryClient();
 
@@ -32,7 +34,12 @@ function App() {
   }
   return (
     <>
-      <h1>Mini project</h1>
+    
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <div className="absolute top-4 right-4">
+        <ModeToggle />
+      </div>
+      {/* <h1>Mini project</h1> */}
       <QueryClientProvider client={queryClient}>
       <BrowserRouter>
             
@@ -60,6 +67,8 @@ function App() {
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
+
+    </ThemeProvider>
     </>
   )
 }

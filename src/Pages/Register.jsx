@@ -16,7 +16,6 @@ import {
 
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
-import { ThemeProvider } from "@/Components/theme-provider"
 import {ModeToggle} from "@/Components/mode-toggle"
 
 function Register() {
@@ -57,11 +56,8 @@ function Register() {
     <h1>Loading...</h1>
   ) : (
     <>
-<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
     <Navbar isauth={false}/>
-    <div className="absolute top-4 right-4">
-          <ModeToggle />
-        </div>
+      <div className="mt-12">
       <Card className="w-[400px] mx-auto">
       <CardHeader>
         <CardTitle>Register</CardTitle>
@@ -84,17 +80,18 @@ function Register() {
               <Input id="pass" name="pass" type="password" placeholder="Password" />
             </div>
           </div>
+          <CardFooter className="flex flex-col space-y-3 mt-6">
+            <Link to="/login">Already have an account? <span className="text-blue-500">Login</span></Link>
+            <div className="flex justify-between w-full">
+              <Button variant="outline" onClick={() => navigate('/')}>Cancel</Button>
+              <Button type="submit" onClick={submit}>Submit</Button>
+            </div>
+          </CardFooter>
         </form>
       </CardContent>
-      <CardFooter className="flex flex-col space-y-3">
-        <Link to="/login">Already have an account? <span className="text-blue-500">Login</span></Link>
-        <div className="flex justify-between w-full">
-          <Button variant="outline" onClick={() => navigate('/')}>Cancel</Button>
-          <Button type="submit" onClick={submit}>Submit</Button>
-        </div>
-      </CardFooter>
+      
     </Card>
-    </ThemeProvider>
+      </div>
     </>
   );
 }
