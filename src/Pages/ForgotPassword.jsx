@@ -55,21 +55,20 @@ function ForgotPassword() {
                   id="email"
                   type="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => setemail(e.target.value)}
                   placeholder="Enter your email"
                 />
               </div>
             </div>
+            <CardFooter className="flex flex-col space-y-3 mt-6">
+              <div className="flex justify-between w-full">
+                <Button variant="outline" onClick={() => navigate(-1)}>Back</Button>
+                {msg === "" && <Button type="submit" onClick={submit}>Submit</Button>}
+              </div>
+            </CardFooter>
           </form>
         )}
       </CardContent>
-      <CardFooter className="flex flex-col space-y-3">
-        {/* <Link to="/login" className="text-blue-500 self-end">Back to Login</Link> */}
-        <div className="flex justify-between w-full">
-          <Button variant="outline" onClick={() => navigate(-1)}>Back</Button>
-          {msg === "" && <Button type="submit" onClick={submit}>Submit</Button>}
-        </div>
-      </CardFooter>
     </Card>
     </div>
   );

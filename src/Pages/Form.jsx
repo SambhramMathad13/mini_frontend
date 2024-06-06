@@ -98,7 +98,7 @@ function Form() {
                 <Input type="file" name="image" accept="image/*" />
               </div>
             </div>
-            <CardFooter className="flex justify-between mt-7">
+            <CardFooter className="flex justify-between mt-6">
               <Button variant="outline" onClick={() => navigate(-1)}>Cancel</Button>
               <Button type="submit">Submit</Button>
             </CardFooter>

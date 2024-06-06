@@ -80,15 +80,16 @@ function Register() {
               <Input id="pass" name="pass" type="password" placeholder="Password" />
             </div>
           </div>
+          <CardFooter className="flex flex-col space-y-3 mt-6">
+            <Link to="/login">Already have an account? <span className="text-blue-500">Login</span></Link>
+            <div className="flex justify-between w-full">
+              <Button variant="outline" onClick={() => navigate('/')}>Cancel</Button>
+              <Button type="submit" onClick={submit}>Submit</Button>
+            </div>
+          </CardFooter>
         </form>
       </CardContent>
-      <CardFooter className="flex flex-col space-y-3">
-        <Link to="/login">Already have an account? <span className="text-blue-500">Login</span></Link>
-        <div className="flex justify-between w-full">
-          <Button variant="outline" onClick={() => navigate('/')}>Cancel</Button>
-          <Button type="submit" onClick={submit}>Submit</Button>
-        </div>
-      </CardFooter>
+      
     </Card>
       </div>
     </>

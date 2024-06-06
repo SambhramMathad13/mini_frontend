@@ -65,16 +65,16 @@ function Login() {
               <Input id="pass" name="pass" type="password" placeholder="Password" />
             </div>
           </div>
+          <CardFooter className="flex flex-col space-y-3 mt-6">
+            <Link to="/forgotpassword" className="text-blue-500 ">Forgot password?</Link>
+            <Link to="/register">Don't have an account? <span className="text-blue-500">Register</span> </Link>
+            <div className="flex justify-between w-full">
+              <Button variant="outline" onClick={() => navigate('/')}>Back</Button>
+              <Button type="submit" onClick={submit}>Submit</Button>
+            </div>
+          </CardFooter>
         </form>
       </CardContent>
-      <CardFooter className="flex flex-col space-y-3">
-        <Link to="/forgotpassword" className="text-blue-500 ">Forgot password?</Link>
-        <Link to="/register">Don't have an account? <span className="text-blue-500">Register</span> </Link>
-        <div className="flex justify-between w-full">
-          <Button variant="outline" onClick={() => navigate('/')}>Back</Button>
-          <Button type="submit" onClick={submit}>Submit</Button>
-        </div>
-      </CardFooter>
     </Card>
     </>
   )

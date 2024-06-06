@@ -97,12 +97,12 @@ function ChangePassword() {
                 />
               </div>
             </div>
+            <CardFooter className="flex justify-between mt-6">
+              <Button variant="outline" onClick={() => navigate(-1)}>Back</Button>
+              <Button type="submit" onClick={submit}>Change</Button>
+            </CardFooter>
           </form>
         </CardContent>
-        <CardFooter className="flex justify-between">
-          <Button variant="outline" onClick={() => navigate(-1)}>Back</Button>
-          <Button type="submit" onClick={submit}>Change</Button>
-        </CardFooter>
       </Card>
     </div>
         </>
