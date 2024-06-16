@@ -47,7 +47,9 @@ function Login() {
 
     return (
         load ? (
-            <h1>Loading...</h1>
+             <div className="loader-container">
+      <div className="loader"></div>
+    </div>
         ) : (
             <>
                 <Navbar isauth={false}/>

@@ -52,7 +52,9 @@ function UpdatePost() {
     };
 
     if (load) {
-        return <h1>Loading...</h1>;
+        return <div className="loader-container">
+        <div className="loader"></div>
+    </div>;
     }
 
     return (

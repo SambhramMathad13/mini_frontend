@@ -4,22 +4,70 @@
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-  <link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-  />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plac.ed</title>
+  <style>
+    .loader-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh; /* Full viewport height */
+      width: 100vw;  /* Full viewport width */
+    }
 
-  <title>Vite + React</title>
+    .loader {
+      width: 55px;
+      aspect-ratio: 1;
+      --loader-color: #fff; /* Default color for light mode */
+      --g1: conic-gradient(from 90deg at top 3px left 3px, #0000 90deg, var(--loader-color) 0);
+      --g2: conic-gradient(from -90deg at bottom 3px right 3px, #0000 90deg, var(--loader-color) 0);
+      background:
+        var(--g1), var(--g1), var(--g1), var(--g1),
+        var(--g2), var(--g2), var(--g2), var(--g2);
+      background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+      background-size: 25px 25px;
+      background-repeat: no-repeat;
+      animation: l11 1.5s infinite;
+    }
 
-  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> -->
+    @keyframes l11 {
+      0% {
+        background-size: 35px 15px, 15px 15px, 15px 35px, 35px 35px
+      }
 
+      25% {
+        background-size: 35px 35px, 15px 35px, 15px 15px, 35px 15px
+      }
+
+      50% {
+        background-size: 15px 35px, 35px 35px, 35px 15px, 15px 15px
+      }
+
+      75% {
+        background-size: 15px 15px, 35px 15px, 35px 35px, 15px 35px
+      }
+
+      100% {
+        background-size: 35px 15px, 15px 15px, 15px 35px, 35px 35px
+      }
+    }
+
+    /* Dark theme styles */
+    body[data-theme='dark'] .loader {
+      --loader-color: #fff; /* White color for dark mode */
+    }
+
+    /* Light theme styles */
+    body[data-theme='light'] .loader {
+      --loader-color: #000; /* Black color for light mode */
+    }
+  </style>
 </head>
 
 <body>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
-  
 </body>
 
 </html>

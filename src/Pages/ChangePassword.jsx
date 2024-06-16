@@ -3,12 +3,12 @@ import api from '../Utils/Axios';
 import { Button } from "@/Components/ui/button";
 import { useNavigate } from 'react-router-dom';
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
 } from "@/Components/ui/card";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
@@ -44,7 +44,9 @@ function ChangePassword() {
     }
 
     return (
-        load ? (<h1>Loading...</h1>) : (
+        load ? (<div className="loader-container">
+            <div className="loader"></div>
+        </div>) : (
             <>
                 <div className="flex justify-center mt-20">
                     <Card className="w-full max-w-xl mx-auto">

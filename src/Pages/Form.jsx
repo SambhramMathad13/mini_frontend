@@ -1,4 +1,4 @@
-import React, { useRef,useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../Utils/Axios';
 import { useQueryClient } from '@tanstack/react-query'
@@ -12,7 +12,7 @@ import {
 } from "@/Components/ui/card";
 import { Textarea } from '@/Components/ui/textarea';
 import { Input } from "@/Components/ui/input";
-import {ModeToggle} from "@/Components/mode-toggle"
+import { ModeToggle } from "@/Components/mode-toggle"
 
 
 function Form() {
@@ -20,8 +20,8 @@ function Form() {
   const [load, setload] = useState(false)
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  
-  async function  handleSubmit(event){
+
+  async function handleSubmit(event) {
     event.preventDefault();
     setload(true)
     const formData = new FormData(formRef.current);
@@ -44,7 +44,9 @@ function Form() {
     }
   };
 
-  return (load ? (<h1>Loading...</h1>) : (
+  return (load ? (<div className="loader-container">
+    <div className="loader"></div>
+  </div>) : (
     <div className="flex justify-center mt-10">
       <Card className="w-full max-w-xl mx-auto">
         <CardHeader>
@@ -55,7 +57,7 @@ function Form() {
             <div className="space-y-4">
               <div className="flex flex-col space-y-1.5">
                 <label htmlFor="usn">USN</label>
-                <Input id="usn" name="usn" required minLength="9" maxLength="11"/>
+                <Input id="usn" name="usn" required minLength="9" maxLength="11" />
               </div>
               <div className="flex flex-col space-y-1.5">
                 <label htmlFor="branch">Branch</label>
@@ -71,7 +73,7 @@ function Form() {
               </div>
               <div className="flex flex-col space-y-1.5">
                 <label htmlFor="companyName">Company Name</label>
-                <Input id="companyName" name="company" required minLength="4" maxLength="20"/>
+                <Input id="companyName" name="company" required minLength="4" maxLength="20" />
               </div>
               <div className="flex flex-col space-y-1.5">
                 <label htmlFor="aboutCompany">About Company</label>
@@ -91,7 +93,7 @@ function Form() {
               </div>
               <div className="flex flex-col space-y-1.5">
                 <label htmlFor="description">Description</label>
-                <Textarea id="description" name="desc" rows="3" required minLength="20" maxLength="4000"/>
+                <Textarea id="description" name="desc" rows="3" required minLength="20" maxLength="4000" />
               </div>
               <div className="flex flex-col space-y-1.5">
                 <label htmlFor="image">User Image</label>

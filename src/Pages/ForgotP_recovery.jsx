@@ -34,44 +34,46 @@ function ForgotP_recovery() {
   }
 
   return load ? (
-    <h1 className="text-center text-2xl">Loading...</h1>
-) : (
-    <div className="max-w-md mx-auto p-6">
-        <h1 className="text-2xl font-bold mb-6">Password Reset Form</h1>
-        <h3 className="mb-4">{msg}</h3>
-        {msg === "" ? (
-            <form onSubmit={submit} className="flex flex-col space-y-4">
-                <Input
-                    type="password"
-                    value={password1}
-                    onChange={(e) => setpass1(e.target.value)}
-                    placeholder="Password"
-                    required
-                    minLength="5"
-                    maxLength="12"
-                />
-                <Input
-                    type="password"
-                    value={password2}
-                    onChange={(e) => setpass2(e.target.value)}
-                    placeholder="Confirm Password"
-                    required
-                    minLength="5"
-                    maxLength="12"
-                />
-                <Button type="submit" className="mt-4">
-                    Reset
-                </Button>
-            </form>
-        ) : (
-            <div className="mt-4">
-                <Link to="/login" className="text-blue-600 underline">
-                    Login
-                </Link>
-            </div>
-        )}
+    <div className="loader-container">
+      <div className="loader"></div>
     </div>
-);
+  ) : (
+    <div className="max-w-md mx-auto p-6">
+      <h1 className="text-2xl font-bold mb-6">Password Reset Form</h1>
+      <h3 className="mb-4">{msg}</h3>
+      {msg === "" ? (
+        <form onSubmit={submit} className="flex flex-col space-y-4">
+          <Input
+            type="password"
+            value={password1}
+            onChange={(e) => setpass1(e.target.value)}
+            placeholder="Password"
+            required
+            minLength="5"
+            maxLength="12"
+          />
+          <Input
+            type="password"
+            value={password2}
+            onChange={(e) => setpass2(e.target.value)}
+            placeholder="Confirm Password"
+            required
+            minLength="5"
+            maxLength="12"
+          />
+          <Button type="submit" className="mt-4">
+            Reset
+          </Button>
+        </form>
+      ) : (
+        <div className="mt-4">
+          <Link to="/login" className="text-blue-600 underline">
+            Login
+          </Link>
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default ForgotP_recovery

@@ -43,7 +43,9 @@ function ViewUserPost() {
         }
       }
 
-    return (load ? (<h1>Loading...</h1>) : (
+    return (load ? (<div className="loader-container">
+      <div className="loader"></div>
+  </div>) : (
         <div className="flex justify-center mt-20">
         <Card className="w-full max-w-xl mx-auto">
           <CardHeader>

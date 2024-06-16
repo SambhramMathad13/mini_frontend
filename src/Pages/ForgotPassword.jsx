@@ -34,42 +34,44 @@ function ForgotPassword() {
     }
   }
   return load ? (
-    <h1>Loading...</h1>
+    <div className="loader-container">
+      <div className="loader"></div>
+    </div>
   ) : (
     <div className="mt-24">
-   
-<Card className="w-[350px] mx-auto mt-10">
-      <CardHeader>
-        <CardTitle>Forgot Password</CardTitle>
-        <CardDescription>Reset your password</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <h3 className="text-red-500">{msg}</h3>
-        {msg === "" && (
-          <form onSubmit={submit}>
-            <div className="grid w-full items-center gap-4">
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setemail(e.target.value)}
-                  placeholder="Enter your email" required minLength="13"
-                maxLength="30"
-                />
+
+      <Card className="w-[350px] mx-auto mt-10">
+        <CardHeader>
+          <CardTitle>Forgot Password</CardTitle>
+          <CardDescription>Reset your password</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <h3 className="text-red-500">{msg}</h3>
+          {msg === "" && (
+            <form onSubmit={submit}>
+              <div className="grid w-full items-center gap-4">
+                <div className="flex flex-col space-y-1.5">
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setemail(e.target.value)}
+                    placeholder="Enter your email" required minLength="13"
+                    maxLength="30"
+                  />
+                </div>
               </div>
-            </div>
-            <CardFooter className="flex flex-col space-y-3 mt-6">
-              <div className="flex justify-between w-full">
-                <Button variant="outline" onClick={() => navigate(-1)}>Back</Button>
-                {msg === "" && <Button type="submit">Submit</Button>}
-              </div>
-            </CardFooter>
-          </form>
-        )}
-      </CardContent>
-    </Card>
+              <CardFooter className="flex flex-col space-y-3 mt-6">
+                <div className="flex justify-between w-full">
+                  <Button variant="outline" onClick={() => navigate(-1)}>Back</Button>
+                  {msg === "" && <Button type="submit">Submit</Button>}
+                </div>
+              </CardFooter>
+            </form>
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 }
