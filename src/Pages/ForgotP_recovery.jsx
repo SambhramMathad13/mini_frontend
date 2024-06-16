@@ -47,6 +47,8 @@ function ForgotP_recovery() {
                     onChange={(e) => setpass1(e.target.value)}
                     placeholder="Password"
                     required
+                    minLength="5"
+                    maxLength="12"
                 />
                 <Input
                     type="password"
@@ -54,6 +56,8 @@ function ForgotP_recovery() {
                     onChange={(e) => setpass2(e.target.value)}
                     placeholder="Confirm Password"
                     required
+                    minLength="5"
+                    maxLength="12"
                 />
                 <Button type="submit" className="mt-4">
                     Reset

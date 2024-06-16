@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import api from "../Utils/Axios";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/Components/ui/button";
@@ -56,14 +55,15 @@ function ForgotPassword() {
                   type="email"
                   value={email}
                   onChange={(e) => setemail(e.target.value)}
-                  placeholder="Enter your email"
+                  placeholder="Enter your email" required minLength="13"
+                maxLength="30"
                 />
               </div>
             </div>
             <CardFooter className="flex flex-col space-y-3 mt-6">
               <div className="flex justify-between w-full">
                 <Button variant="outline" onClick={() => navigate(-1)}>Back</Button>
-                {msg === "" && <Button type="submit" onClick={submit}>Submit</Button>}
+                {msg === "" && <Button type="submit">Submit</Button>}
               </div>
             </CardFooter>
           </form>

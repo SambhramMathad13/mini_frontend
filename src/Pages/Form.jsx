@@ -55,11 +55,11 @@ function Form() {
             <div className="space-y-4">
               <div className="flex flex-col space-y-1.5">
                 <label htmlFor="usn">USN</label>
-                <Input id="usn" name="usn" required />
+                <Input id="usn" name="usn" required minLength="9" maxLength="11"/>
               </div>
               <div className="flex flex-col space-y-1.5">
                 <label htmlFor="branch">Branch</label>
-                <Input id="branch" name="branch" required />
+                <Input id="branch" name="branch" required minLength="2" maxLength="17" />
               </div>
               <div className="flex flex-col space-y-1.5">
                 <label htmlFor="link">Link (Google Drive link)</label>
@@ -71,27 +71,27 @@ function Form() {
               </div>
               <div className="flex flex-col space-y-1.5">
                 <label htmlFor="companyName">Company Name</label>
-                <Input id="companyName" name="company" required />
+                <Input id="companyName" name="company" required minLength="4" maxLength="20"/>
               </div>
               <div className="flex flex-col space-y-1.5">
                 <label htmlFor="aboutCompany">About Company</label>
-                <Textarea id="aboutCompany" name="about_company" rows="3" required />
+                <Textarea id="aboutCompany" name="about_company" rows="3" required minLength="20" maxLength="3000" />
               </div>
               <div className="flex flex-col space-y-1.5">
                 <label htmlFor="eligibility">Eligibility</label>
-                <Input id="eligibility" name="eligiblity" required />
+                <Input id="eligibility" name="eligiblity" required minLength="9" maxLength="500" />
               </div>
               <div className="flex flex-col space-y-1.5">
                 <label htmlFor="ctc">CTC</label>
-                <Input id="ctc" name="ctc" required />
+                <Input type="number" id="ctc" name="ctc" required />
               </div>
               <div className="flex flex-col space-y-1.5">
                 <label htmlFor="rounds">Rounds</label>
-                <Input id="rounds" name="rounds" required />
+                <Input type="number" id="rounds" name="rounds" required />
               </div>
               <div className="flex flex-col space-y-1.5">
                 <label htmlFor="description">Description</label>
-                <Textarea id="description" name="desc" rows="3" required />
+                <Textarea id="description" name="desc" rows="3" required minLength="20" maxLength="4000"/>
               </div>
               <div className="flex flex-col space-y-1.5">
                 <label htmlFor="image">User Image</label>

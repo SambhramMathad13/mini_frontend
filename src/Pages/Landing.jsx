@@ -5,11 +5,11 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import {
-    Card,
-    CardContent,
-    CardFooter,
-    CardHeader,
-  } from "@/Components/ui/card";
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/Components/ui/card";
 import { Button } from "@/Components/ui/button"
 
 const fetchPosts = async () => {
@@ -74,7 +74,8 @@ function Landing() {
                 type="text"
                 onChange={(e) => setsearchkey(e.target.value)}
                 className="bg-transparent flex-grow px-4 placeholder-gray-800 dark:placeholder-white border-none font-medium text-xl"
-                placeholder="Search posts..."
+                placeholder="Search posts..." required minLength="2"
+                maxLength="15"
               />
               <div className="absolute inset-y-0 left-80 h-20 border-1 border-gray-800"></div>
               <Button

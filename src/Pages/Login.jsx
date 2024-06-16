@@ -1,10 +1,8 @@
-import React from 'react'
-import {useRef,useState } from 'react'
-import { useNavigate } from "react-router-dom";
+import React, { useRef, useState } from 'react';
+import { useNavigate, Link } from "react-router-dom";
 import api from '../Utils/Axios';
-import Navbar from "../Components/Navbar"
-import { Link } from 'react-router-dom'
-import { Button } from "@/Components/ui/button"
+import Navbar from "../Components/Navbar";
+import { Button } from "@/Components/ui/button";
 import {
     Card,
     CardContent,
@@ -12,73 +10,96 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-  } from "@/Components/ui/card";
-  import { Input } from "@/Components/ui/input";
+} from "@/Components/ui/card";
+import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 
 function Login() {
-    const form=useRef()
-    const [load, setload] = useState(false)
-    const [msg, setmsg] = useState('')
+    const formRef = useRef();
+    const [load, setLoad] = useState(false);
+    const [msg, setMsg] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
     async function submit(event) {
-        setload(true)
         event.preventDefault();
-        const username = form.current.user.value;
-        const password = form.current.pass.value;
+        const username = formRef.current.user.value;
+        const password = formRef.current.pass.value;
+        setLoad(true);
+
         try {
             const res = await api.post('/api/gettoken', { username, password });
             localStorage.setItem('access', res.data.access);
             localStorage.setItem('refresh', res.data.refresh);
             navigate("/home", { state: { userData: username } });
-
         } catch (error) {
             if (error.response && error.response.status === 401) {
-                setmsg("Invalid username or password")
+                setMsg("Invalid Username or Password");
             }
         } finally {
-            setload(false);
+            setLoad(false);
         }
-        // console.log(user, pass)
     }
-    
-  return (load ? (<h1>Loading...</h1>) : (
-    <>
-    
-    <Navbar isauth={false}/>
-    <Card className="w-[400px] mx-auto">
-      <CardHeader>
-        <CardTitle>Login</CardTitle>
-        <CardDescription>Access your account</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={submit} ref={form}>
-          <div className="grid w-full items-center gap-4">
-            <h3>{msg}</h3>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="user">Username</Label>
-              <Input id="user" name="user" placeholder="Username" />
-            </div>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="pass">Password</Label>
-              <Input id="pass" name="pass" type="password" placeholder="Password" />
-            </div>
-          </div>
-          <CardFooter className="flex flex-col space-y-3 mt-6">
-            <Link to="/forgotpassword" className="text-blue-500 ">Forgot password?</Link>
-            <Link to="/register">Don't have an account? <span className="text-blue-500">Register</span> </Link>
-            <div className="flex justify-between w-full">
-              <Button variant="outline" onClick={() => navigate('/')}>Back</Button>
-              <Button type="submit" onClick={submit}>Submit</Button>
-            </div>
-          </CardFooter>
-        </form>
-      </CardContent>
-    </Card>
-    </>
-  )
-  )
+
+    const toggleShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
+
+    return (
+        load ? (
+            <h1>Loading...</h1>
+        ) : (
+            <>
+                <Navbar isauth={false}/>
+                <Card className="w-[400px] mx-auto">
+                    <CardHeader>
+                        <CardTitle>Login</CardTitle>
+                        <CardDescription>Access your account</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <form onSubmit={submit} ref={formRef} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }}>
+                            <div className="grid w-full items-center gap-4">
+                                {msg && <div className="text-red-500">{msg}</div>}
+                                <div className="flex flex-col space-y-1.5">
+                                    <Label htmlFor="user">Username</Label>
+                                    <Input id="user" name="user" placeholder="Username" required minLength="5" maxLength="12" />
+                                </div>
+                                <div className="flex flex-col space-y-1.5">
+                                    <Label htmlFor="pass">Password</Label>
+                                    <div className="relative">
+                                        <Input
+                                            id="pass"
+                                            name="pass"
+                                            type={showPassword ? "text" : "password"}
+                                            placeholder="Password"
+                                            required
+                                            minLength="5"
+                                            maxLength="12"
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={toggleShowPassword}
+                                            className="absolute inset-y-0 right-0 flex items-center px-2 text-gray-600"
+                                        >
+                                            <i className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <CardFooter className="flex flex-col space-y-3 mt-6">
+                                <Link to="/forgotpassword" className="text-blue-500">Forgot password?</Link>
+                                <Link to="/register">Don't have an account? <span className="text-blue-500">Register</span></Link>
+                                <div className="flex justify-between w-full">
+                                    <Button variant="outline" onClick={() => navigate('/')}>Back</Button>
+                                    <Button type="submit">Submit</Button>
+                                </div>
+                            </CardFooter>
+                        </form>
+                    </CardContent>
+                </Card>
+            </>
+        )
+    );
 }
 
-export default Login
+export default Login;
