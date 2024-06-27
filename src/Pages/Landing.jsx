@@ -4,6 +4,7 @@ import { formatDistanceToNow } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import { Skeleton } from "@/Components/ui/skeleton";
 import {
   Card,
   CardContent,
@@ -51,7 +52,60 @@ function Landing() {
   };
 
   return load ? (
-    <h1>Loading...</h1>
+     <div>
+      
+        <div className="p-4">
+          <Skeleton className="h-10 w-full mb-4" />
+        </div>
+        <div className="relative flex flex-col items-center justify-center py-10 px-4">
+          <Skeleton className="h-12 w-3/4 mb-4" />
+          <Skeleton className="h-8 w-1/2 mb-2" />
+          <Skeleton className="h-10 w-full max-w-md p-4 border-2 flex items-center space-x-2" />
+        </div>
+        <div className="flex flex-wrap justify-around items-center text-sm sm:text-base md:text-lg lg:text-xl font-bold text-gray-600 dark:text-white px-4">
+          <Skeleton className="h-6 w-24 mt-4 m-2" />
+          <Skeleton className="h-6 w-36 mt-4 m-2" />
+          <div className="relative flex flex-col items-center justify-center mt-4 m-2">
+            <Skeleton className="h-6 w-16 mb-1" />
+            <Skeleton className="h-6 w-16" />
+          </div>
+          <Skeleton className="h-6 w-28 mt-4 m-2" />
+        </div>
+      <h1 className="text-center font-bold text-2xl md:text-3xl lg:text-4xl my-8">
+        <Skeleton className="h-8 w-1/2 mx-auto" />
+      </h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mx-3">
+        {[...Array(6)].map((_, index) => (
+          <div
+            key={index}
+            className="relative bg-white dark:bg-gray-800 shadow-lg rounded-lg"
+          >
+            <Card className="w-full">
+              <CardHeader className="p-4 border-b border-gray-200 dark:border-gray-700">
+                <div className="flex items-center">
+                  <Skeleton className="rounded-full mr-3" style={{ width: "50px", height: "50px" }} />
+                  <div>
+                    <Skeleton className="h-4 w-24 mb-1" />
+                    <Skeleton className="h-3 w-20" />
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="p-4">
+                <Skeleton className="h-4 w-3/4 mb-2" />
+                <Skeleton className="h-4 w-2/3 mb-2" />
+                <Skeleton className="h-4 w-full mb-2" />
+                <Skeleton className="h-4 w-1/2 mb-2" />
+                <Skeleton className="h-4 w-full mb-2" />
+                <Skeleton className="h-4 w-1/2 mb-2" />
+              </CardContent>
+              <CardFooter className="p-4 border-t border-gray-200 dark:border-gray-700 flex justify-center">
+                <Skeleton className="h-10 w-24" />
+              </CardFooter>
+            </Card>
+          </div>
+        ))}
+      </div>
+    </div>
   ) : (
     <>
       <div

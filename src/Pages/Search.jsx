@@ -11,7 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/Components/ui/card";
-
+import { Skeleton } from '@/Components/ui/skeleton';
 const searchposts = async (s) => {
     const res = await axios.get(`https://mytodolistwebapp.pythonanywhere.com/api/posts/search/?search=${s}`);
     return res.data;
@@ -34,7 +34,50 @@ function Search() {
     // console.log(posts)
 
     if (!Array.isArray(posts) || posts.length === 0) {
-        return (load ? (<h1>Loading...</h1>) : (
+        return (load ? (
+            <>
+            <div className="p-4">
+                <Skeleton className="h-10 w-full mb-4" />
+            </div>
+            <h1 className="text-3xl font-bold text-center my-6">
+                <Skeleton className="w-48 h-8 mb-4 mx-auto" />
+            </h1>
+            <div className="flex justify-center mb-6">
+                <Skeleton className="w-20 h-10" />
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mx-3">
+                {[...Array(3)].map((_, index) => (
+                    <Card key={index} className="w-full">
+                        <CardHeader>
+                            <div className="flex items-center mb-3">
+                                <Skeleton className="rounded-full mr-3" style={{ width: '50px', height: '50px' }} />
+                                <div>
+                                    <Skeleton className="h-6 w-24 mb-1" />
+                                </div>
+                                <small className="text-gray-400 ml-auto">
+                                    <Skeleton className="h-4 w-20" />
+                                </small>
+                            </div>
+                            <CardTitle>
+                                <Skeleton className="text-xl font-bold w-3/4" />
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <Skeleton className="mb-2 w-full" />
+                            <Skeleton className="mb-2 w-full" />
+                            <Skeleton className="mb-2 w-full" />
+                            <Skeleton className="mb-2 w-3/4" />
+                            <Skeleton className="mb-2 w-1/2" />
+                            <Skeleton className="mb-2 w-2/3" />
+                        </CardContent>
+                        <CardFooter className="flex justify-center">
+                            <Skeleton className="h-10 w-24" />
+                        </CardFooter>
+                    </Card>
+                ))}
+            </div>
+        </>
+    ) : (
           <div>
             <h1>No Search result found...</h1>
           </div>
@@ -54,7 +97,11 @@ function Search() {
     };
 
     return (
-        load ? (<h1>Loading...</h1>) : (
+        load ? (
+        <>
+        <h1>Loading.....</h1>
+        </>
+    ) : (
             <>
                 <Navbar isauth={false} />
                 <h1 className="text-3xl font-bold text-center my-6">Search Results</h1>
@@ -83,17 +130,17 @@ function Search() {
                                 <CardTitle>Company name: {ele.company}</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-gray-700">Branch: {ele.branch}</p>
-                                <p className="text-gray-700">
+                                <p>Branch: {ele.branch}</p>
+                                <p>
                                     <strong>About company:</strong> {truncateText(ele.about_company, 100)}
                                 </p>
-                                <p className="text-gray-700">
+                                <p>
                                     <strong>CTC:</strong> {ele.ctc}
                                 </p>
-                                <p className="text-gray-700">
+                                <p>
                                     <strong>Eligibility:</strong> {truncateText(ele.eligiblity, 100)}
                                 </p>
-                                <p className="text-gray-700">
+                                <p>
                                     <strong>Rounds:</strong> {ele.rounds}
                                 </p>
                             </CardContent>

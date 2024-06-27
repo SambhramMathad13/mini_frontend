@@ -13,6 +13,18 @@ import {
   CardTitle,
 } from "@/Components/ui/card";
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/Components/ui/alert-dialog"
+
 function ViewUserPost() {
     const { state } = useLocation();
     const [load, setload] = useState(false)
@@ -81,7 +93,24 @@ function ViewUserPost() {
             </Link>
             <div className="flex space-x-3">
               <Button onClick={navigateToUpdate}>Update</Button>
-              <Button onClick={deletee}>Delete</Button>
+              <AlertDialog>
+                                <AlertDialogTrigger asChild>
+                                    <Button>Delete</Button>
+                                </AlertDialogTrigger>
+                                <AlertDialogContent>
+                                    <AlertDialogHeader>
+                                        <AlertDialogTitle>Are you sure you want to delete this post?</AlertDialogTitle>
+                                        <AlertDialogDescription>
+                                            This action cannot be undone. This will permanently delete your post.
+                                        </AlertDialogDescription>
+                                    </AlertDialogHeader>
+                                    <AlertDialogFooter>
+                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                        <AlertDialogAction onClick={deletee}>Delete</AlertDialogAction>
+                                    </AlertDialogFooter>
+                                </AlertDialogContent>
+                            </AlertDialog>
+
             </div>
           </CardFooter>
         </Card>
