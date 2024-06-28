@@ -78,9 +78,18 @@ function Search() {
             </div>
         </>
     ) : (
-          <div>
-            <h1>No Search result found...</h1>
-          </div>
+        <div className="flex flex-col items-center justify-center h-full text-center p-4 mt-3">
+        <h1 className="text-4xl font-bold mb-4 text-gray-800 dark:text-white">No Search Results Found</h1>
+        <p className="text-lg text-gray-600 dark:text-gray-200 mb-6">
+            It looks like we couldn’t find any matches for your search.
+        </p>
+        <Button onClick={() => navigate('/')}>Go Back</Button>
+        <img
+                src="src/Components/no-res-found.svg"
+                alt="404 Not Found"
+                className="w-[350px] h-[350px] mt-4"
+            />
+    </div>
         ));
       }
 
