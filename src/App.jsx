@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import ProtectedRoutes from "./Utils/ProtectedRoutes";
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
@@ -16,8 +16,8 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import ViewUserPost from "./Pages/ViewUserPost";
 import UpdatePost from "./Pages/UpdatePost";
 import Search from "./Pages/Search";
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ThemeProvider, useTheme } from "@/Components/theme-provider";
 import { ModeToggle } from "@/Components/mode-toggle";
 
@@ -37,33 +37,43 @@ function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <ThemeListener />
-      <div className="absolute top-4 right-4">
+      {/* <div className="absolute top-4 right-4">
         <ModeToggle />
-      </div>
+      </div> */}
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <Routes>
-            <Route path='/login' element={<Login />} />
-            <Route path='/view' element={<ViewPost />} />
-            <Route path='/forgotpassword' element={<ForgotPassword />} />
-            <Route path='/' element={<Landing />} />
-            <Route path='/register' element={<Register_Logout />} />
-            <Route path='/api/user/reset/:uid/:token' element={<ForgotP_recovery />} />
-            <Route path='/api/user/verify/:uid/:token' element={<Email_verification />} />
-            <Route path='/search' element={<Search />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/view" element={<ViewPost />} />
+            <Route path="/forgotpassword" element={<ForgotPassword />} />
+            <Route path="/" element={<Landing />} />
+            <Route path="/register" element={<Register_Logout />} />
+            <Route
+              path="/api/user/reset/:uid/:token"
+              element={<ForgotP_recovery />}
+            />
+            <Route
+              path="/api/user/verify/:uid/:token"
+              element={<Email_verification />}
+            />
+            <Route path="/search" element={<Search />} />
             <Route element={<ProtectedRoutes />}>
-              <Route path='/home' element={<Home />} />
-              <Route path='/changepassword' element={<ChangePassword />} />
-              <Route path='/form' element={<Form />} />
-              <Route path='/viewuserpost' element={<ViewUserPost />} />
-              <Route path='/updatepost' element={<UpdatePost />} />
-              <Route path='/logout' element={<Logout />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/changepassword" element={<ChangePassword />} />
+              <Route path="/form" element={<Form />} />
+              <Route path="/viewuserpost" element={<ViewUserPost />} />
+              <Route path="/updatepost" element={<UpdatePost />} />
+              <Route path="/logout" element={<Logout />} />
             </Route>
-            <Route path='*' element={<_404 />} />
+
+            <Route path="*" element={<_404 />} />
           </Routes>
         </BrowserRouter>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
+      <div className="absolute top-4 right-4">
+        <ModeToggle />
+      </div>
     </ThemeProvider>
   );
 }
@@ -72,7 +82,7 @@ function ThemeListener() {
   const { theme } = useTheme();
 
   useEffect(() => {
-    document.body.setAttribute('data-theme', theme);
+    document.body.setAttribute("data-theme", theme);
   }, [theme]);
 
   return null;

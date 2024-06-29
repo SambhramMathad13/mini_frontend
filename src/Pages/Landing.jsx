@@ -55,7 +55,7 @@ function Landing() {
   ) : (
     <>
       <div
-        className="relative bg-cover bg-center mb-24"
+        className="relative bg-cover bg-center mb-24 "
         style={{
           backgroundImage: `url('/Group 12.png')`,
           height: "72vh",
