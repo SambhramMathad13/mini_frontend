@@ -37,9 +37,7 @@ function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <ThemeListener />
-      <div className="absolute top-4 right-4">
-        <ModeToggle />
-      </div>
+      
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <Routes>
@@ -64,6 +62,9 @@ function App() {
         </BrowserRouter>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
+      <div className="absolute top-4 right-4">
+        <ModeToggle />
+      </div>
     </ThemeProvider>
   );
 }

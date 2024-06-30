@@ -2,72 +2,73 @@ import React from 'react'
 import { useState } from 'react'
 import { useParams, Link } from 'react-router-dom';
 import api from '../Utils/Axios';
-import { Input } from "@/Components/ui/input";
 import { Button } from "@/Components/ui/button";
+import {
+    Card,
+    CardContent,
+    CardHeader,
+    CardTitle,
+} from "@/Components/ui/card";
+import { Skeleton } from '@/Components/ui/skeleton';
 
 function Email_verification() {
-    const { uid, token } = useParams();
-    const [load, setload] = useState(false)
-    const [msg, setmsg] = useState("")
+  const { uid, token } = useParams();
+  const [load, setload] = useState(false)
+  const [msg, setmsg] = useState("")
 
-    async function submit(e) {
-        setload(true)
-        e.preventDefault();
+  async function submit(e) {
+    setload(true)
+    e.preventDefault();
 
 
-        try {
-            const res = await api.get(`api/av/${uid}/${token}`);
-            setmsg(res.data.msg)
-        } catch (error) {
-            setmsg("Invalid url or token expiration")
-        } finally {
-            setload(false);
-
-        }
+    try {
+      const res = await api.get(`api/av/${uid}/${token}`);
+      setmsg(res.data.msg)
+    } catch (error) {
+      setmsg("Invalid url or token expiration")
+    } finally {
+      setload(false);
 
     }
 
-    return load ? (
-        <div className="loader-container">
-            <div className="loader"></div>
-        </div>
+  }
+
+  return (
+    load ? (
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
+        <Card className="w-full max-w-md mx-auto">
+          <CardHeader>
+            <Skeleton className="h-8 w-3/4 mx-auto mb-4" />
+          </CardHeader>
+          <CardContent>
+            <Skeleton className="h-6 w-3/4 mx-auto mb-4" />
+            <Skeleton className="h-10 w-full mb-4" />
+            <Skeleton className="h-6 w-1/2 mx-auto mb-4" />
+          </CardContent>
+        </Card>
+      </div>
     ) : (
-        <div className="max-w-md mx-auto p-6">
-            <h1 className="text-2xl font-bold mb-6">Password Reset Form</h1>
-            <h3 className="mb-4">{msg}</h3>
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
+        <Card className="w-full max-w-md mx-auto">
+          <CardHeader>
+            <CardTitle className="text-center text-3xl font-bold">Email Verification</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <h3 className="text-center text-lg mb-4">{msg}</h3>
             {msg === "" ? (
-                <form onSubmit={submit} className="flex flex-col space-y-4">
-                    <Input
-                        type="password"
-                        value={password1}
-                        onChange={(e) => setpass1(e.target.value)}
-                        placeholder="Password"
-                        required
-                        minLength="13"
-                        maxLength="35"
-                    />
-                    <Input
-                        type="password"
-                        value={password2}
-                        onChange={(e) => setpass2(e.target.value)}
-                        placeholder="Confirm Password"
-                        required
-                        minLength="5"
-                        maxLength="12"
-                    />
-                    <Button type="submit" className="mt-4">
-                        Reset
-                    </Button>
-                </form>
+              <form onSubmit={submit} className="space-y-6">
+                <Button type="submit" className="w-full">Verify</Button>
+              </form>
             ) : (
-                <div className="mt-4">
-                    <Link to="/login" className="text-blue-600 underline">
-                        Login
-                    </Link>
-                </div>
+              <div className="mt-4 text-center">
+                <Link to="/login" className="text-blue-600 dark:text-blue-400 underline">Login</Link>
+              </div>
             )}
-        </div>
-    );
+          </CardContent>
+        </Card>
+      </div>
+    )
+  );
 }
 
 export default Email_verification

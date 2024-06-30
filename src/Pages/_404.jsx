@@ -7,7 +7,7 @@ function _404() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen text-center p-4">
             <img
-                src="src/Components/404img.svg"
+                src="/404img.svg"
                 alt="404 Not Found"
                 className="w-[350px] h-[350px]"
             />
