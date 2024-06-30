@@ -85,7 +85,7 @@ function Search() {
         </p>
         <Button onClick={() => navigate('/')}>Go Back</Button>
         <img
-                src="src/Components/no-res-found.svg"
+                src="/no-res-found.svg"
                 alt="404 Not Found"
                 className="w-[350px] h-[350px] mt-4"
             />
