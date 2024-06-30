@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: 'https://mytodolistwebapp.pythonanywhere.com'
-    // baseURL: 'https://placed.pythonanywhere.com'
+    // baseURL: 'https://mytodolistwebapp.pythonanywhere.com'
+    baseURL: 'https://placed.pythonanywhere.com'
     // baseURL: 'http://127.0.0.1:8000'
 });
 

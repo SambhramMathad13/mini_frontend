@@ -13,7 +13,7 @@ import {
 } from "@/Components/ui/card";
 import { Skeleton } from '@/Components/ui/skeleton';
 const searchposts = async (s) => {
-    const res = await axios.get(`https://mytodolistwebapp.pythonanywhere.com/api/posts/search/?search=${s}`);
+    const res = await axios.get(`https://placed.pythonanywhere.com/api/posts/search/?search=${s}`);
     return res.data;
 };
 

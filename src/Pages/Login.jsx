@@ -33,9 +33,7 @@ function Login() {
             localStorage.setItem('refresh', res.data.refresh);
             navigate("/home", { state: { userData: username } });
         } catch (error) {
-            if (error.response && error.response.status === 401) {
-                setMsg("Invalid Username or Password");
-            }
+            setMsg(error.response.data.detail);
         } finally {
             setLoad(false);
         }
