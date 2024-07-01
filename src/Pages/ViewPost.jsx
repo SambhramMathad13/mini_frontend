@@ -39,9 +39,11 @@ function ViewPost() {
               <h1 className="mt-2 text-2xl md:text-3xl lg:text-5xl text-gray-800 font-medium">
                 {post.company}
               </h1>
-              <button className="mt-4 px-4 py-2 md:px-6 md:py-3 lg:px-8 lg:py-4 border border-black text-black rounded-full text-base md:text-lg">
-                View Resume
-              </button>
+              <a href={post.link} className="mt-4 px-4 py-2 md:px-6 md:py-3 lg:px-8 lg:py-4 border border-black text-black rounded-full text-base md:text-lg">
+  View Resume
+</a>
+
+
             </div>
           </div>
         </div>
@@ -60,9 +62,7 @@ function ViewPost() {
       <p className="text-base md:text-lg lg:text-xl">
         {post.about_company}
         <br />
-        <a href={post.link} className="text-blue-400 underline">
-          {post.link}
-        </a>
+       
       </p>
     </div>
 
