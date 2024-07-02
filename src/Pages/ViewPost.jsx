@@ -7,7 +7,6 @@ function ViewPost() {
   const post = state?.ele;
   const searchKey = state?.searchKey;
   const navigate = useNavigate();
-  
 
   if (!post) {
     return <div>Post not found</div>;
@@ -39,62 +38,59 @@ function ViewPost() {
               <h1 className="mt-2 text-2xl md:text-3xl lg:text-5xl text-gray-800 font-medium">
                 {post.company}
               </h1>
-              <a href={post.link} className="mt-4 px-4 py-2 md:px-6 md:py-3 lg:px-8 lg:py-4 border border-black text-black rounded-full text-base md:text-lg">
-  View Resume
-</a>
-
-
+              <button className="mt-4 px-4 py-2 md:px-6 md:py-3 lg:px-8 lg:py-4 border border-black text-black rounded-full text-base md:text-lg">
+                View Resume
+              </button>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-3xl mx-auto bg-gray-800 text-white rounded-lg shadow-md overflow-hidden">
-  <div className="p-4 md:p-6 space-y-6">
-    
-    <div className="flex flex-col md:flex-row md:items-center">
-      <h3 className="font-bold text-lg md:text-xl lg:text-2xl mr-2 mb-2 md:mb-0">Branch:</h3>
-      <p className="text-base md:text-lg lg:text-xl">{post.branch}</p>
-    </div>
-
-    <div className="flex flex-col md:flex-row md:items-center">
-      <h3 className="font-bold text-lg md:text-xl lg:text-2xl mr-2 mb-2 md:mb-0">About Company:</h3>
-      <p className="text-base md:text-lg lg:text-xl">
-        {post.about_company}
-        <br />
-       
-      </p>
-    </div>
-
-    <div className="flex flex-col md:flex-row md:items-center">
-      <h3 className="font-bold text-lg md:text-xl lg:text-2xl mr-2 mb-2 md:mb-0">Eligibility Criteria:</h3>
-      <p className="text-base md:text-lg lg:text-xl">{post.eligiblity}</p>
-    </div>
-
-    <div className="flex flex-col md:flex-row md:items-center">
-      <h3 className="font-bold text-lg md:text-xl lg:text-2xl mr-2 mb-2 md:mb-0">CTC offered:</h3>
-      <p className="text-base md:text-lg lg:text-xl">{post.ctc}</p>
-    </div>
-
-    <div className="flex flex-col md:flex-row md:items-center">
-      <h3 className="font-bold text-lg md:text-xl lg:text-2xl mr-2 mb-2 md:mb-0">Rounds:</h3>
-      <p className="text-base md:text-lg lg:text-xl">{post.rounds}</p>
-    </div>
-
-    <div className="flex flex-col md:flex-row md:items-center">
-      <h3 className="font-bold text-lg md:text-xl lg:text-2xl mr-2 mb-2 md:mb-0">Description:</h3>
-      <p className="text-base md:text-lg lg:text-xl">{post.desc}</p>
-    </div>
-
-    <div className="flex flex-col md:flex-row md:items-center">
-      <h3 className="font-bold text-lg md:text-xl lg:text-2xl mr-2 mb-2 md:mb-0">Contact Details:</h3>
-      <p className="text-base md:text-lg lg:text-xl">{post.social_link}</p>
-    </div>
-
-  </div>
-</div>
-
-
+      <div className="flex flex-col md:flex-row p-4 md:p-12 lg:p-24 space-y-6 md:space-y-0 md:space-x-6">
+        <div className="flex-1 p-4 md:p-12 bg-blue-900 text-white rounded-md">
+          <div className="text-center">
+            <p>{post.social_link}</p>
+            <h3 className="font-medium text-lg md:text-xl lg:text-2xl">
+              Eligibility Criteria
+            </h3>
+            <p className="text-base md:text-lg lg:text-xl">CGPA: {post.cgpa}</p>
+            <p className="text-base md:text-lg lg:text-xl">
+              10TH: {post.tenth}
+            </p>
+            <p className="text-base md:text-lg lg:text-xl">
+              12TH: {post.twelfth}
+            </p>
+            <br />
+            <p className="font-medium text-base md:text-lg lg:text-xl">
+              No Active Backlogs
+            </p>
+            <h3 className="font-medium text-lg md:text-xl lg:text-2xl">
+              CTC offered: {post.ctc}
+            </h3>
+            <br />
+            <p className="font-medium text-base md:text-lg lg:text-xl">
+              <strong>Rounds:</strong> {post.rounds}
+            </p>
+            <h3 className="text-base md:text-lg lg:text-xl">
+              Online assessment
+            </h3>
+            <h3 className="text-base md:text-lg lg:text-xl">
+              Technical Interview
+            </h3>
+            <h3 className="text-base md:text-lg lg:text-xl">HR+Managerial</h3>
+          </div>
+        </div>
+        <div className="flex-1 p-4 md:p-12 bg-gray-100 rounded-md mt-4 md:mt-0">
+          <h3 className="font-bold text-gray-800 text-lg md:text-xl lg:text-2xl">
+            Brief about company
+          </h3>
+          <p className="text-base md:text-lg lg:text-xl text-gray-800">
+            {post.about_company}
+            <br></br>
+            {post.link}
+          </p>
+        </div>
+      </div>
 
       <Footer />
     </div>

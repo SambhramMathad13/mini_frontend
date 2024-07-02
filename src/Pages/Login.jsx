@@ -50,7 +50,9 @@ function Login() {
     </div>
         ) : (
             <>
+           
                 <Navbar isauth={false}/>
+                <div className="mt-12">
                 <Card className="w-[400px] mx-auto">
                     <CardHeader>
                         <CardTitle>Login</CardTitle>
@@ -97,6 +99,7 @@ function Login() {
                         </form>
                     </CardContent>
                 </Card>
+                </div>
             </>
         )
     );
